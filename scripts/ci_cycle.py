@@ -20,7 +20,7 @@ from pathlib import Path
 import numpy as np
 
 from config import DB_PATH, INITIAL_CAPITAL, MAX_POSITION_PCT
-from src.fetchers.binance import BinanceClient
+from src.fetchers.btc import BTCFetcher
 from src.fetchers.collector import init_db, insert_tick
 from src.fetchers.polymarket import PolymarketClient
 from src.simulator.fees import DEFAULT_FEES
@@ -90,7 +90,7 @@ def _open_trade_for(event_slug: str) -> LiveTrade | None:
     )
 
 
-def _resolve_expired_trades(binance: BinanceClient, poly: PolymarketClient) -> None:
+def _resolve_expired_trades(binance: BTCFetcher, poly: PolymarketClient) -> None:
     """Résout les trades dont l'event est clos."""
     if not TRADES_DB.exists():
         return
@@ -118,7 +118,7 @@ def _resolve_expired_trades(binance: BinanceClient, poly: PolymarketClient) -> N
 def run_cycle() -> None:
     init_db()
     init_trades_db()
-    binance = BinanceClient()
+    binance = BTCFetcher()
     poly = PolymarketClient()
 
     try:

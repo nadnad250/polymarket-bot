@@ -21,7 +21,7 @@ from datetime import datetime
 from pathlib import Path
 
 from config import DB_PATH, INITIAL_CAPITAL
-from src.fetchers.binance import BinanceClient
+from src.fetchers.btc import BTCFetcher
 from src.fetchers.polymarket import PolymarketClient
 
 POLL_SEC = 10
@@ -82,14 +82,17 @@ def save_trade(trade: LiveTrade) -> None:
         conn.commit()
 
 
-def compute_momentum(binance: BinanceClient, window_sec: int = 60) -> float:
+def compute_momentum(binance: BTCFetcher, window_sec: int = 60) -> float:
     """Momentum simple = (prix_now / prix_il_y_a_60s) - 1."""
-    klines = binance.get_klines(interval="1m", limit=2)
+    klines = binance.get_klines(limit=2)
     if len(klines) < 2:
         return 0.0
+    # Binance format: [openTime, open, high, low, close, volume, ...]
+    # Coinbase format: [time, low, high, open, close, volume]
+    # close est à l'index 4 dans les deux cas
     old_close = float(klines[0][4])
     new_close = float(klines[1][4])
-    return (new_close - old_close) / old_close
+    return (new_close - old_close) / old_close if old_close > 0 else 0.0
 
 
 def decide_side(momentum: float, imbalance: float) -> str | None:
@@ -137,7 +140,7 @@ def write_summary(cash: float, trades: list[LiveTrade]) -> None:
 
 def run() -> None:
     init_trades_db()
-    binance = BinanceClient()
+    binance = BTCFetcher()
     poly = PolymarketClient()
     stop = {"flag": False}
     signal.signal(signal.SIGINT, lambda s, f: stop.update(flag=True))

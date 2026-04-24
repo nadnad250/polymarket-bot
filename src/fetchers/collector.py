@@ -14,7 +14,7 @@ from contextlib import closing
 from datetime import datetime
 
 from config import DB_PATH
-from src.fetchers.binance import BinanceClient
+from src.fetchers.btc import BTCFetcher
 from src.fetchers.polymarket import PolymarketClient
 
 POLL_INTERVAL_SEC = 5
@@ -53,7 +53,7 @@ def insert_tick(conn: sqlite3.Connection, row: tuple) -> None:
 
 def run(poll_sec: int = POLL_INTERVAL_SEC) -> None:
     init_db()
-    binance = BinanceClient()
+    binance = BTCFetcher()
     poly = PolymarketClient()
     stop = {"flag": False}
 
