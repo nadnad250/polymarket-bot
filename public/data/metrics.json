@@ -1,8 +1,1 @@
-{
-  "trained_at": null,
-  "metrics": {},
-  "weights": {},
-  "status": "waiting_for_data",
-  "min_ticks_required": 500,
-  "note": "Le modèle sera entraîné automatiquement dès que 500 ticks auront été collectés (~42h)."
-}
+{}

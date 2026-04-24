@@ -1,11 +1,11 @@
 {
-  "ts": null,
-  "btc_price": null,
-  "poly_yes": null,
-  "poly_no": null,
-  "poly_market": null,
-  "poly_question": "En attente du premier tick...",
-  "ob_imb": null,
-  "spread_bps": null,
-  "updated_at": null
+  "ts": 1777066395326,
+  "btc_price": 77618.86499999999,
+  "poly_yes": 0.495,
+  "poly_no": 0.505,
+  "poly_market": "btc-updown-5m-1777066500",
+  "poly_question": "Bitcoin Up or Down - April 24, 5:35PM-5:40PM ET",
+  "ob_imb": 0.6385579016909202,
+  "spread_bps": 0.0,
+  "updated_at": "2026-04-24T21:33:15.777560+00:00"
 }
