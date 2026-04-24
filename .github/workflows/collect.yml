@@ -41,9 +41,12 @@ jobs:
         run: python scripts/ci_cycle.py
         env:
           INITIAL_CAPITAL: "1000"
+          PYTHONPATH: ${{ github.workspace }}
 
       - name: Export dashboard data
         run: python scripts/export_dashboard_data.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}
 
       - name: Commit updated data
         run: |

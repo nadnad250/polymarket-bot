@@ -36,6 +36,7 @@ jobs:
         run: python scripts/ci_train.py
         env:
           PYTHONUNBUFFERED: "1"
+          PYTHONPATH: ${{ github.workspace }}
 
       - name: Commit model + metrics
         run: |
