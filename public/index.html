@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polymarket BTC Bot — Live Trading Dashboard</title>
+<meta name="description" content="Bot ML ultra avancé pour prédiction BTC Up/Down sur Polymarket — LightGBM + XGBoost + LSTM ensemble.">
+<link rel="icon" href="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚡%3C/text%3E%3C/svg%3E">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">⚡</span>
+    <div>
+      <h1>Polymarket BTC Bot</h1>
+      <p class="tagline">ML ensemble · Live paper trading · Auto-trained via GitHub Actions</p>
+    </div>
+  </div>
+  <div class="status">
+    <span class="dot dot-live"></span>
+    <span id="last-update">Chargement...</span>
+  </div>
+</header>
+
+<main>
+  <section class="kpis">
+    <div class="kpi"><div class="label">Capital</div><div class="value" id="capital">$1000.00</div><div class="sub" id="capital-sub"></div></div>
+    <div class="kpi"><div class="label">ROI</div><div class="value" id="roi">0.00%</div><div class="sub">depuis start</div></div>
+    <div class="kpi"><div class="label">Trades</div><div class="value" id="trades">0</div><div class="sub" id="trades-sub">0 ouverts</div></div>
+    <div class="kpi"><div class="label">Win Rate</div><div class="value" id="wr">—</div><div class="sub" id="wr-sub">—</div></div>
+    <div class="kpi"><div class="label">PnL Total</div><div class="value" id="pnl">$0.00</div><div class="sub" id="pnl-sub">moy/trade —</div></div>
+    <div class="kpi"><div class="label">Best / Worst</div><div class="value" id="bestworst">— / —</div><div class="sub">trades extrêmes</div></div>
+  </section>
+
+  <section class="live">
+    <div class="card-live">
+      <div class="label">BTC / USDT (Binance)</div>
+      <div class="big-price" id="btc-price">—</div>
+      <div class="sub" id="btc-sub">—</div>
+    </div>
+    <div class="card-live">
+      <div class="label">Polymarket YES</div>
+      <div class="big-price" id="poly-yes">—</div>
+      <div class="sub" id="poly-event">—</div>
+    </div>
+    <div class="card-live">
+      <div class="label">Spread</div>
+      <div class="big-price" id="spread">—</div>
+      <div class="sub">bps Binance</div>
+    </div>
+    <div class="card-live">
+      <div class="label">Orderbook imb.</div>
+      <div class="big-price" id="obimb">—</div>
+      <div class="sub">bid vs ask (10 lvl)</div>
+    </div>
+  </section>
+
+  <section class="charts">
+    <div class="chart-wrap">
+      <h2>BTC Price — 24h</h2>
+      <div id="chart-btc" class="chart"></div>
+    </div>
+    <div class="chart-wrap">
+      <h2>Probabilité Polymarket YES (%)</h2>
+      <div id="chart-poly" class="chart"></div>
+    </div>
+    <div class="chart-wrap chart-wide">
+      <h2>Courbe de capital — équité simulée</h2>
+      <div id="chart-equity" class="chart"></div>
+    </div>
+  </section>
+
+  <section class="model-card">
+    <h2>Modèle — Ensemble LightGBM + XGBoost + LSTM</h2>
+    <div class="model-grid">
+      <div><div class="label">Accuracy</div><div class="mval" id="m-acc">—</div></div>
+      <div><div class="label">AUC</div><div class="mval" id="m-auc">—</div></div>
+      <div><div class="label">Brier</div><div class="mval" id="m-brier">—</div></div>
+      <div><div class="label">LogLoss</div><div class="mval" id="m-logloss">—</div></div>
+      <div><div class="label">Training samples</div><div class="mval" id="m-train">—</div></div>
+      <div><div class="label">Dernier entraînement</div><div class="mval" id="m-date">—</div></div>
+    </div>
+  </section>
+
+  <section class="trades-table">
+    <h2>Derniers trades</h2>
+    <div class="table-wrap">
+      <table id="trades-tbl">
+        <thead>
+          <tr>
+            <th>Heure</th>
+            <th>Side</th>
+            <th>Entry</th>
+            <th>Size</th>
+            <th>BTC entry → exit</th>
+            <th>Mom.</th>
+            <th>Imb.</th>
+            <th>Résultat</th>
+            <th>PnL</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>
+    Data auto-refresh toutes les 30s ·
+    <a href="https://github.com" id="repo-link" target="_blank">Code source</a> ·
+    Bot entraîné par GitHub Actions · Paper trading $1000
+  </p>
+  <p class="disclaimer">Éducation uniquement. Pas un conseil financier.</p>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

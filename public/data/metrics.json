@@ -1,0 +1,13 @@
+{
+  "trained_at": "2026-04-24T20:00:00Z",
+  "metrics": {
+    "accuracy": 0.546,
+    "auc": 0.571,
+    "brier": 0.2434,
+    "logloss": 0.6823,
+    "n_train": 8640,
+    "n_test": 2160,
+    "base_rate": 0.512
+  },
+  "weights": {"lgbm": 0.45, "xgb": 0.35, "lstm": 0.2}
+}

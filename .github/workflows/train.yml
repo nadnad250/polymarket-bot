@@ -1,0 +1,50 @@
+name: Train ML Model
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # toutes les 6 heures
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: train
+  cancel-in-progress: true
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install deps (full ML)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Train ensemble model
+        run: python scripts/ci_train.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Commit model + metrics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/model_*.pkl data/model_metrics.json public/data/metrics.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "feat(model): retrain $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          else
+            echo "Pas de nouveau modèle."
+          fi

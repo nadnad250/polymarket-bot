@@ -1,0 +1,19 @@
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Local caches — mais on commit les données de production pour le dashboard
+*.log
+.vscode/
+.idea/
+.DS_Store
+
+# Données locales uniquement (CI commit data/bot.db + data/trades.db + data/model_*)
+data/*.parquet
+data/*.csv
+
+# Modèles locaux trop lourds
+*.ckpt
