@@ -143,13 +143,15 @@ def _optimize_weights(probs_list: list[np.ndarray], y: np.ndarray) -> list[float
 
 
 def save_ensemble(result: EnsembleResult, path: str | Path) -> None:
+    """Sauvegarde l'ensemble — tensors LSTM convertis en numpy pour torch-free load."""
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     lstm_state = None
     if result.lstm is not None:
-        import torch
+        # Convertit tensors en numpy → pickle peut se charger sans torch
+        sd = {k: v.detach().cpu().numpy() for k, v in result.lstm.net.state_dict().items()}
         lstm_state = {
-            "state_dict": result.lstm.net.state_dict(),
+            "state_dict_np": sd,
             "window": result.lstm.window,
             "feature_cols": result.lstm.feature_cols,
         }
@@ -185,7 +187,10 @@ def predict_proba(ensemble_payload: dict, X: pd.DataFrame) -> np.ndarray:
             from src.models.lstm import LSTMClassifier, make_windows
             state = ensemble_payload["lstm_state"]
             net = LSTMClassifier(n_features=len(state["feature_cols"]))
-            net.load_state_dict(state["state_dict"])
+            # Reconvertit numpy → tensors
+            sd_np = state.get("state_dict_np") or state.get("state_dict") or {}
+            sd = {k: torch.from_numpy(v) if hasattr(v, "shape") else v for k, v in sd_np.items()}
+            net.load_state_dict(sd)
             net.eval()
             X_arr = X.to_numpy(dtype=np.float32)
             Xw, _ = make_windows(X_arr, np.zeros(len(X_arr), dtype=np.float32), window=state["window"])
