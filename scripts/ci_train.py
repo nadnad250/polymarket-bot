@@ -19,7 +19,8 @@ from config import DB_PATH
 from src.models.ensemble import save_ensemble, train_ensemble
 from src.models.features import build_features
 
-MIN_TICKS = 500   # on attend au moins 500 ticks avant de train
+MIN_TICKS = 100   # on attend au moins 100 ticks avant de train (LSTM désactivé sous 200)
+LSTM_MIN_TICKS = 250
 MODEL_PATH = Path("data/model_ensemble.pkl")
 METRICS_PATH = Path("data/model_metrics.json")
 PUBLIC_METRICS_PATH = Path("public/data/metrics.json")
@@ -41,7 +42,8 @@ def main() -> None:
     feats = build_features(df)
     print(f"[train] features shape: {feats.shape}")
 
-    result = train_ensemble(feats, use_lstm=True)
+    use_lstm = len(df) >= LSTM_MIN_TICKS
+    result = train_ensemble(feats, use_lstm=use_lstm)
     print(f"[train] ✓ métriques: {result.metrics}")
     print(f"[train] ✓ poids ensemble: {result.weights}")
 

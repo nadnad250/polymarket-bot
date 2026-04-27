@@ -147,47 +147,61 @@ def run_cycle() -> None:
         # 2) Résolution des trades expirés
         _resolve_expired_trades(binance, poly)
 
-        # 3) Inférence + trade si edge
-        model = _load_model()
-        if model is None:
-            print("[ci] pas de modèle → pas de trade cette itération.")
-        else:
-            # Skip si trade déjà ouvert pour cet event
-            if _open_trade_for(snap.event_slug) is None:
+        # 3) Décision de trade — modèle ML si dispo, sinon baseline heuristique
+        if _open_trade_for(snap.event_slug) is None:
+            model = _load_model()
+            decision = None  # (side, price, edge_or_score, source)
+
+            if model is not None:
                 p_up = _predict_for_latest(model)
-                if p_up is None:
-                    print("[ci] pas assez de ticks pour prédire.")
-                else:
+                if p_up is not None:
                     edge_yes = p_up - snap.yes_price
                     edge_no = (1 - p_up) - snap.no_price
                     if edge_yes > edge_no:
                         side, price, edge = "YES", snap.yes_price, edge_yes
                     else:
                         side, price, edge = "NO", snap.no_price, edge_no
-
                     if edge >= MIN_EDGE and 0.05 < price < 0.95:
-                        cash = _cash_from_trades()
-                        # Kelly fractionnaire cap
-                        size_pct = min(KELLY_CAP, max(0.0, edge))
-                        size_usd = cash * size_pct
-                        eff_price, _ = DEFAULT_FEES.apply_entry(price, size_usd)
-                        trade = LiveTrade(
-                            event_slug=snap.event_slug,
-                            opened_at=int(time.time() * 1000),
-                            side=side,
-                            entry_price=eff_price,
-                            size_usd=size_usd,
-                            btc_entry=btc.price,
-                            momentum=0.0,
-                            imbalance=imb,
-                        )
-                        save_trade(trade)
-                        print(
-                            f"[ci] ▶ OPEN {side} @{eff_price:.3f} size=${size_usd:.2f} "
-                            f"p_up={p_up:.3f} edge={edge:+.3f}"
-                        )
-                    else:
-                        print(f"[ci] pas d'edge (edge={edge:+.3f} price={price:.3f})")
+                        decision = (side, price, edge, "ml", p_up)
+
+            # Fallback baseline : sans modèle, on trade quand même via momentum + imbalance
+            if decision is None:
+                momentum = _compute_momentum(binance)
+                # Heuristique : signal fort = momentum aligné avec imbalance
+                signal = momentum * 1000 + imb * 0.5  # combiné
+                if signal > 0.15 and snap.yes_price < 0.55:
+                    decision = ("YES", snap.yes_price, abs(signal), "baseline", None)
+                elif signal < -0.15 and snap.no_price < 0.55:
+                    decision = ("NO", snap.no_price, abs(signal), "baseline", None)
+
+            if decision is None:
+                print(f"[ci] pas de signal (imb={imb:+.3f})")
+            else:
+                side, price, score, src, p_up = decision
+                cash = _cash_from_trades()
+                # Sizing : Kelly si ML, fixe 2% si baseline
+                if src == "ml":
+                    size_pct = min(KELLY_CAP, max(0.005, score))
+                else:
+                    size_pct = 0.02
+                size_usd = cash * size_pct
+                eff_price, _ = DEFAULT_FEES.apply_entry(price, size_usd)
+                trade = LiveTrade(
+                    event_slug=snap.event_slug,
+                    opened_at=int(time.time() * 1000),
+                    side=side,
+                    entry_price=eff_price,
+                    size_usd=size_usd,
+                    btc_entry=btc.price,
+                    momentum=score if src == "baseline" else (p_up or 0.0),
+                    imbalance=imb,
+                )
+                save_trade(trade)
+                p_str = f"p_up={p_up:.3f}" if p_up is not None else f"score={score:+.3f}"
+                print(
+                    f"[ci] ▶ OPEN [{src.upper()}] {side} @{eff_price:.3f} "
+                    f"size=${size_usd:.2f} {p_str}"
+                )
 
         # 4) Résumé pour dashboard
         cash = _cash_from_trades()
