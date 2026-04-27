@@ -164,25 +164,48 @@ def save_ensemble(result: EnsembleResult, path: str | Path) -> None:
 
 
 def predict_proba(ensemble_payload: dict, X: pd.DataFrame) -> np.ndarray:
+    """Inférence ensemble — torch est optionnel (CI lean sans torch).
+
+    Si torch n'est pas dispo et qu'un poids LSTM existe, on renormalise les
+    poids LGBM + XGB pour qu'ils somment à 1.
+    """
     X = X[FEATURE_COLS].replace([np.inf, -np.inf], 0).fillna(0)
     p_lgbm = ensemble_payload["lgbm"].predict_proba(X)[:, 1]
     p_xgb = ensemble_payload["xgb"].predict_proba(X)[:, 1]
     w = ensemble_payload["weights"]
-    p = w["lgbm"] * p_lgbm + w["xgb"] * p_xgb
-    if ensemble_payload.get("lstm_state"):
-        import torch
-        from src.models.lstm import LSTMClassifier, make_windows
-        state = ensemble_payload["lstm_state"]
-        net = LSTMClassifier(n_features=len(state["feature_cols"]))
-        net.load_state_dict(state["state_dict"])
-        net.eval()
-        X_arr = X.to_numpy(dtype=np.float32)
-        Xw, _ = make_windows(X_arr, np.zeros(len(X_arr), dtype=np.float32), window=state["window"])
-        if len(Xw) > 0:
-            with torch.no_grad():
-                probs_lstm = torch.sigmoid(net(torch.from_numpy(Xw))).numpy()
-            # Pad pour aligner longueur
-            pad = np.full(len(p) - len(probs_lstm), 0.5)
-            probs_lstm = np.concatenate([pad, probs_lstm])
-            p = p * (1 - w.get("lstm", 0)) + probs_lstm * w.get("lstm", 0)
-    return p
+    w_lgbm = float(w.get("lgbm", 0.5))
+    w_xgb = float(w.get("xgb", 0.5))
+    w_lstm = float(w.get("lstm", 0.0))
+
+    # Tente d'utiliser le LSTM si présent + torch dispo
+    probs_lstm = None
+    if ensemble_payload.get("lstm_state") and w_lstm > 0:
+        try:
+            import torch
+            from src.models.lstm import LSTMClassifier, make_windows
+            state = ensemble_payload["lstm_state"]
+            net = LSTMClassifier(n_features=len(state["feature_cols"]))
+            net.load_state_dict(state["state_dict"])
+            net.eval()
+            X_arr = X.to_numpy(dtype=np.float32)
+            Xw, _ = make_windows(X_arr, np.zeros(len(X_arr), dtype=np.float32), window=state["window"])
+            if len(Xw) > 0:
+                with torch.no_grad():
+                    probs_lstm = torch.sigmoid(net(torch.from_numpy(Xw))).numpy()
+                pad = np.full(len(X) - len(probs_lstm), 0.5)
+                probs_lstm = np.concatenate([pad, probs_lstm])
+        except ImportError:
+            print("[ensemble] torch absent — LSTM ignoré, poids renormalisés sur LGBM+XGB")
+            probs_lstm = None
+        except Exception as e:
+            print(f"[ensemble] LSTM inference failed: {e} — fallback LGBM+XGB")
+            probs_lstm = None
+
+    if probs_lstm is not None:
+        return w_lgbm * p_lgbm + w_xgb * p_xgb + w_lstm * probs_lstm
+
+    # Fallback : renormalise sans LSTM
+    total = w_lgbm + w_xgb
+    if total <= 0:
+        return 0.5 * p_lgbm + 0.5 * p_xgb
+    return (w_lgbm / total) * p_lgbm + (w_xgb / total) * p_xgb
