@@ -104,7 +104,13 @@ def _open_trade_for(event_slug: str) -> LiveTrade | None:
 
 
 def _resolve_expired_trades(binance: BTCFetcher, poly: PolymarketClient) -> None:
-    """Résout les trades dont l'event est clos."""
+    """Résout les trades dont l'event est clos OU dont endDate est passé.
+
+    Polymarket prend 5-10 min pour passer closed=True après la fin du marché.
+    On résout dès que endDate est passé (le résultat est déterminé par BTC à ce
+    moment-là, peu importe quand Polymarket l'enregistre).
+    """
+    from datetime import datetime, timezone
     if not TRADES_DB.exists():
         return
     with closing(sqlite3.connect(str(TRADES_DB))) as conn:
@@ -112,12 +118,28 @@ def _resolve_expired_trades(binance: BTCFetcher, poly: PolymarketClient) -> None
             "SELECT event_slug FROM trades WHERE outcome IS NULL"
         ).fetchall()
 
+    now = datetime.now(tz=timezone.utc)
+
     for (slug,) in opens:
         event = poly.get_event(slug)
         if event is None:
             continue
-        if not event.get("closed"):
+
+        is_closed = event.get("closed", False)
+        end_date_str = event.get("endDate") or ""
+        is_expired = False
+        if end_date_str:
+            try:
+                end_dt = datetime.fromisoformat(end_date_str.replace("Z", "+00:00"))
+                # 30s de marge pour s'assurer que la résolution est définitive
+                if (now - end_dt).total_seconds() > 30:
+                    is_expired = True
+            except Exception:
+                pass
+
+        if not (is_closed or is_expired):
             continue
+
         trade = _open_trade_for(slug)
         if trade is None:
             continue
@@ -125,7 +147,8 @@ def _resolve_expired_trades(binance: BTCFetcher, poly: PolymarketClient) -> None
         trade = resolve_trade(trade, btc_exit)
         save_trade(trade)
         status = "WIN" if trade.outcome else "LOSS"
-        print(f"[ci] résolu {status} {slug} pnl={trade.pnl:+.2f}")
+        reason = "closed" if is_closed else "expired"
+        print(f"[ci] résolu [{reason}] {status} {slug} pnl={trade.pnl:+.2f}")
 
 
 def run_cycle() -> None:
