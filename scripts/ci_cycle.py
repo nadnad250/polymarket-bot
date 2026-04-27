@@ -34,6 +34,19 @@ MIN_EDGE = 0.03
 KELLY_CAP = MAX_POSITION_PCT
 
 
+def _compute_momentum(binance: BTCFetcher) -> float:
+    """Momentum 1min : (close_now / close_il_y_a_1min) - 1."""
+    try:
+        klines = binance.get_klines(limit=2)
+        if len(klines) < 2:
+            return 0.0
+        old_close = float(klines[0][4])
+        new_close = float(klines[1][4])
+        return (new_close - old_close) / old_close if old_close > 0 else 0.0
+    except Exception:
+        return 0.0
+
+
 def _load_model() -> dict | None:
     if not MODEL_PATH.exists():
         return None
