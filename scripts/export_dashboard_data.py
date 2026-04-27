@@ -86,19 +86,26 @@ def export_trades(trades: pd.DataFrame) -> dict:
     if trades.empty:
         return {"trades": [], "metrics": {}}
     closed = trades.dropna(subset=["outcome"])
+
+    def _safe_int(v):
+        return int(v) if pd.notna(v) else None
+
+    def _safe_round(v, n=2):
+        return round(float(v), n) if pd.notna(v) else None
+
     trades_list = [
         {
             "event": str(r["event_slug"]),
             "ts": int(r["opened_at"]),
             "side": str(r["side"]),
-            "entry": round(float(r["entry_price"]), 4),
-            "size": round(float(r["size_usd"]), 2),
-            "btc_entry": round(float(r["btc_entry"]), 2),
-            "btc_exit": round(float(r["btc_exit"]), 2) if r["btc_exit"] else None,
-            "momentum": round(float(r["momentum"]), 5),
-            "imbalance": round(float(r["imbalance"]), 3),
-            "outcome": int(r["outcome"]) if r["outcome"] is not None else None,
-            "pnl": round(float(r["pnl"]), 2),
+            "entry": _safe_round(r["entry_price"], 4),
+            "size": _safe_round(r["size_usd"], 2),
+            "btc_entry": _safe_round(r["btc_entry"], 2),
+            "btc_exit": _safe_round(r["btc_exit"], 2),
+            "momentum": _safe_round(r["momentum"], 5),
+            "imbalance": _safe_round(r["imbalance"], 3),
+            "outcome": _safe_int(r["outcome"]),
+            "pnl": _safe_round(r["pnl"], 2) or 0.0,
         }
         for _, r in trades.head(100).iterrows()
     ]
