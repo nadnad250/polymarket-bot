@@ -1,17 +1,30 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1777354200",
+      "ts": 1777354165363,
+      "side": "YES",
+      "entry": 0.472,
+      "size": 20.86,
+      "btc_entry": 77056.61,
+      "btc_exit": null,
+      "momentum": 0.58711,
+      "imbalance": 0.253,
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1777349700",
       "ts": 1777349606706,
       "side": "YES",
       "entry": 0.5126,
       "size": 20.47,
       "btc_entry": 76874.4,
-      "btc_exit": null,
+      "btc_exit": 77056.61,
       "momentum": 0.58706,
       "imbalance": -0.531,
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 19.46
     },
     {
       "event": "btc-updown-5m-1777344900",
@@ -210,14 +223,14 @@
     }
   ],
   "metrics": {
-    "total_trades": 15,
-    "win_rate": 0.533,
-    "total_pnl": 23.3,
+    "total_trades": 16,
+    "win_rate": 0.562,
+    "total_pnl": 42.76,
     "best_trade": 32.25,
     "worst_trade": -21.06,
-    "avg_pnl": 1.55,
-    "roi_pct": 2.33,
-    "capital": 1023.3
+    "avg_pnl": 2.67,
+    "roi_pct": 4.28,
+    "capital": 1042.76
   },
   "equity": [
     {
@@ -279,6 +292,10 @@
     {
       "ts": 1777349605383,
       "equity": 1023.3
+    },
+    {
+      "ts": 1777354164306,
+      "equity": 1042.76
     }
   ]
 }
