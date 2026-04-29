@@ -30,7 +30,8 @@ from src.simulator.live_loop import (
 )
 
 MODEL_PATH = Path("data/model_ensemble.pkl")
-MIN_EDGE = 0.03
+MIN_EDGE = 0.05
+MIN_CONFIDENCE = 0.10  # |p_up - 0.5| min ; sous ce seuil le modèle n'est pas confiant
 KELLY_CAP = MAX_POSITION_PCT
 
 
@@ -191,14 +192,21 @@ def run_cycle() -> None:
             if model is not None:
                 p_up = _predict_for_latest(model)
                 if p_up is not None:
-                    edge_yes = p_up - snap.yes_price
-                    edge_no = (1 - p_up) - snap.no_price
-                    if edge_yes > edge_no:
-                        side, price, edge = "YES", snap.yes_price, edge_yes
+                    confidence = abs(p_up - 0.5)
+                    if confidence < MIN_CONFIDENCE:
+                        print(
+                            f"[ci] modèle peu confiant (|p_up-0.5|={confidence:.3f} "
+                            f"< {MIN_CONFIDENCE}), skip ML"
+                        )
                     else:
-                        side, price, edge = "NO", snap.no_price, edge_no
-                    if edge >= MIN_EDGE and 0.05 < price < 0.95:
-                        decision = (side, price, edge, "ml", p_up)
+                        edge_yes = p_up - snap.yes_price
+                        edge_no = (1 - p_up) - snap.no_price
+                        if edge_yes > edge_no:
+                            side, price, edge = "YES", snap.yes_price, edge_yes
+                        else:
+                            side, price, edge = "NO", snap.no_price, edge_no
+                        if edge >= MIN_EDGE and 0.05 < price < 0.95:
+                            decision = (side, price, edge, "ml", p_up)
 
             # Fallback baseline : sans modèle, on trade quand même via momentum + imbalance
             if decision is None:
@@ -215,9 +223,11 @@ def run_cycle() -> None:
             else:
                 side, price, score, src, p_up = decision
                 cash = _cash_from_trades()
-                # Sizing : Kelly si ML, fixe 2% si baseline
+                # Sizing : Kelly + multiplicateur de confiance si ML, fixe 2% sinon
                 if src == "ml":
-                    size_pct = min(KELLY_CAP, max(0.005, score))
+                    # confidence ∈ [0, 1] : 0 quand p_up=0.5, 1 quand p_up=0 ou 1
+                    confidence_multiplier = abs((p_up or 0.5) - 0.5) * 2
+                    size_pct = min(KELLY_CAP, max(0.005, score * confidence_multiplier))
                 else:
                     size_pct = 0.02
                 size_usd = cash * size_pct

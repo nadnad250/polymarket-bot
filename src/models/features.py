@@ -11,6 +11,13 @@ Features utilisées :
 - Spread Binance
 - Probabilité implicite Polymarket (signal de la foule)
 - Gap prob. marché vs momentum (détecte mispricing)
+- Bandes de Bollinger (distance bornes upper/lower)
+- MACD (12-26) + signal (9)
+- VWAP cumulé + déviation
+- Z-score du return 60s
+- Variations + vélocité Polymarket
+- Encoding cyclique de l'heure (sin/cos)
+- Ratio de régime de volatilité (60s / 300s)
 """
 from __future__ import annotations
 
@@ -31,6 +38,10 @@ def _rsi(series: pd.Series, window: int = 14) -> pd.Series:
     down = (-delta.clip(upper=0)).rolling(window, min_periods=1).mean()
     rs = up / down.replace(0, np.nan)
     return (100 - 100 / (1 + rs)).fillna(50)
+
+
+def _ema(series: pd.Series, span: int) -> pd.Series:
+    return series.ewm(span=span, adjust=False, min_periods=1).mean()
 
 
 def build_features(df: pd.DataFrame, poll_sec: int = 5) -> pd.DataFrame:
@@ -71,6 +82,50 @@ def build_features(df: pd.DataFrame, poll_sec: int = 5) -> pd.DataFrame:
     # --- Mispricing : le marché dit X mais le momentum dit Y ---
     df["poly_vs_momentum"] = df["poly_yes"] - (df["ret_60s"] * 10 + 0.5).clip(0, 1)
 
+    # --- Bandes de Bollinger (window=20) ---
+    bb_window = 20
+    bb_mean = df["btc_price"].rolling(bb_window, min_periods=1).mean()
+    bb_std = df["btc_price"].rolling(bb_window, min_periods=1).std().fillna(0)
+    bb_upper = bb_mean + 2 * bb_std
+    bb_lower = bb_mean - 2 * bb_std
+    # Distance relative au prix (positif = au-dessus de la borne)
+    safe_price = df["btc_price"].replace(0, np.nan)
+    df["bb_upper_pct"] = ((df["btc_price"] - bb_upper) / safe_price).fillna(0)
+    df["bb_lower_pct"] = ((df["btc_price"] - bb_lower) / safe_price).fillna(0)
+
+    # --- MACD (12-26) + signal (9) ---
+    ema_12 = _ema(df["btc_price"], 12)
+    ema_26 = _ema(df["btc_price"], 26)
+    df["macd"] = (ema_12 - ema_26).fillna(0)
+    df["macd_signal"] = _ema(df["macd"], 9).fillna(0)
+
+    # --- VWAP cumulé + déviation ---
+    # Sans volume explicite, on approxime avec un poids unitaire (TWAP cumulé)
+    cum_price = df["btc_price"].expanding(min_periods=1).mean()
+    df["vwap_dev_pct"] = ((df["btc_price"] - cum_price) / safe_price).fillna(0)
+
+    # --- Z-score du return 60s sur fenêtre 60s ---
+    n60 = max(1, 60 // poll_sec)
+    ret60_mean = df["ret_60s"].rolling(n60, min_periods=1).mean()
+    ret60_std = df["ret_60s"].rolling(n60, min_periods=1).std().replace(0, np.nan)
+    df["ret_zscore_60"] = ((df["ret_60s"] - ret60_mean) / ret60_std).fillna(0)
+
+    # --- Variations + vélocité Polymarket ---
+    n30p = max(1, 30 // poll_sec)
+    n60p = max(1, 60 // poll_sec)
+    df["poly_yes_diff_30s"] = df["poly_yes"].diff(n30p).fillna(0)
+    df["poly_yes_diff_60s"] = df["poly_yes"].diff(n60p).fillna(0)
+    df["poly_yes_velocity"] = (df["poly_yes_diff_60s"] / 60.0).fillna(0)
+
+    # --- Encoding cyclique de l'heure ---
+    hours = df["dt"].dt.hour + df["dt"].dt.minute / 60.0
+    df["tod_sin"] = np.sin(2 * np.pi * hours / 24.0)
+    df["tod_cos"] = np.cos(2 * np.pi * hours / 24.0)
+
+    # --- Ratio de régime de volatilité ---
+    safe_vol_300 = df["vol_300s"].replace(0, np.nan)
+    df["volatility_ratio"] = (df["vol_60s"] / safe_vol_300).fillna(1.0)
+
     # --- Label : BTC a-t-il monté dans HORIZON_SEC secondes ? ---
     shift_n = HORIZON_SEC // poll_sec
     df["future_price"] = df["btc_price"].shift(-shift_n)
@@ -86,6 +141,14 @@ FEATURE_COLS = [
     "rsi_14", "mom_1m", "mom_5m",
     "ob_imb", "ob_imb_avg_30s", "spread_pct",
     "poly_yes", "poly_edge_vs_5050", "poly_vs_momentum",
+    # --- Nouvelles features (10) ---
+    "bb_upper_pct", "bb_lower_pct",
+    "macd", "macd_signal",
+    "vwap_dev_pct",
+    "ret_zscore_60",
+    "poly_yes_diff_30s", "poly_yes_diff_60s", "poly_yes_velocity",
+    "tod_sin", "tod_cos",
+    "volatility_ratio",
 ]
 
 

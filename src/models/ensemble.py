@@ -25,6 +25,7 @@ class EnsembleResult:
     lstm: object | None
     weights: dict
     metrics: dict
+    flip: bool = False
 
 
 def _train_lgbm(X_tr, y_tr):
@@ -97,11 +98,24 @@ def train_ensemble(df_features: pd.DataFrame, use_lstm: bool = True) -> Ensemble
         p_ens = weights[0] * p_lgbm + weights[1] * p_xgb
         w_dict = {"lgbm": weights[0], "xgb": weights[1]}
 
+    # --- Auto-flip d'inversion : si AUC < 0.45, le modèle est anti-prédictif ---
+    auc_raw = float(roc_auc_score(y_te, p_ens)) if y_te.nunique() > 1 else 0.5
+    flip_needed = auc_raw < 0.45
+    if flip_needed:
+        print(f"[ensemble] AUC={auc_raw:.3f} < 0.45 → AUTO-FLIP activé (probas inversées)")
+        p_ens = 1 - p_ens
+        p_lgbm = 1 - p_lgbm
+        p_xgb = 1 - p_xgb
+        if p_lstm is not None:
+            p_lstm = 1 - p_lstm
+
     preds = (p_ens > 0.5).astype(int)
     metrics = {
         "n_train": len(X_tr), "n_test": len(y_te),
         "accuracy": float((preds == y_te.values).mean()),
         "auc": float(roc_auc_score(y_te, p_ens)) if y_te.nunique() > 1 else None,
+        "auc_raw": auc_raw,
+        "flip": bool(flip_needed),
         "brier": float(brier_score_loss(y_te, p_ens)),
         "logloss": float(log_loss(y_te, p_ens.clip(1e-6, 1 - 1e-6))),
         "base_rate": float(y_tr.mean()),
@@ -111,7 +125,10 @@ def train_ensemble(df_features: pd.DataFrame, use_lstm: bool = True) -> Ensemble
     if p_lstm is not None:
         metrics["brier_lstm"] = float(brier_score_loss(y_te, p_lstm))
 
-    return EnsembleResult(lgbm=m_lgbm, xgb=m_xgb, lstm=m_lstm, weights=w_dict, metrics=metrics)
+    return EnsembleResult(
+        lgbm=m_lgbm, xgb=m_xgb, lstm=m_lstm,
+        weights=w_dict, metrics=metrics, flip=bool(flip_needed),
+    )
 
 
 def _optimize_weights(probs_list: list[np.ndarray], y: np.ndarray) -> list[float]:
@@ -162,6 +179,7 @@ def save_ensemble(result: EnsembleResult, path: str | Path) -> None:
             "lstm_state": lstm_state,
             "weights": result.weights,
             "metrics": result.metrics,
+            "flip": bool(getattr(result, "flip", False)),
         }, f)
 
 
@@ -207,10 +225,16 @@ def predict_proba(ensemble_payload: dict, X: pd.DataFrame) -> np.ndarray:
             probs_lstm = None
 
     if probs_lstm is not None:
-        return w_lgbm * p_lgbm + w_xgb * p_xgb + w_lstm * probs_lstm
+        p = w_lgbm * p_lgbm + w_xgb * p_xgb + w_lstm * probs_lstm
+    else:
+        # Fallback : renormalise sans LSTM
+        total = w_lgbm + w_xgb
+        if total <= 0:
+            p = 0.5 * p_lgbm + 0.5 * p_xgb
+        else:
+            p = (w_lgbm / total) * p_lgbm + (w_xgb / total) * p_xgb
 
-    # Fallback : renormalise sans LSTM
-    total = w_lgbm + w_xgb
-    if total <= 0:
-        return 0.5 * p_lgbm + 0.5 * p_xgb
-    return (w_lgbm / total) * p_lgbm + (w_xgb / total) * p_xgb
+    # Auto-flip : backward-compatible (default False si clef absente)
+    if ensemble_payload.get("flip"):
+        p = 1 - p
+    return p
