@@ -1,6 +1,19 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1777495800",
+      "ts": 1777495535012,
+      "side": "NO",
+      "entry": 0.543,
+      "size": 21.27,
+      "btc_entry": 75741.58,
+      "btc_exit": null,
+      "momentum": 0.81347,
+      "imbalance": -0.602,
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1777495500",
       "ts": 1777495476786,
       "side": "NO",
