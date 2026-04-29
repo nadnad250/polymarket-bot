@@ -7,11 +7,11 @@
       "entry": 0.5126,
       "size": 20.42,
       "btc_entry": 75943.38,
-      "btc_exit": null,
+      "btc_exit": 75887.46,
       "momentum": 0.20685,
       "imbalance": -0.255,
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 19.42
     },
     {
       "event": "btc-updown-5m-1777495800",
@@ -951,14 +951,14 @@
     }
   ],
   "metrics": {
-    "total_trades": 72,
-    "win_rate": 0.514,
-    "total_pnl": 20.99,
+    "total_trades": 73,
+    "win_rate": 0.521,
+    "total_pnl": 40.41,
     "best_trade": 35.5,
     "worst_trade": -22.39,
-    "avg_pnl": 0.29,
-    "roi_pct": 2.1,
-    "capital": 1020.99
+    "avg_pnl": 0.55,
+    "roi_pct": 4.04,
+    "capital": 1040.41
   },
   "equity": [
     {
@@ -1248,6 +1248,10 @@
     {
       "ts": 1777497329545,
       "equity": 1020.99
+    },
+    {
+      "ts": 1777500574195,
+      "equity": 1040.41
     }
   ]
 }
