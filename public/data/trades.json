@@ -1,6 +1,19 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1777605600",
+      "ts": 1777605540048,
+      "side": "YES",
+      "entry": 0.4618,
+      "size": 21.52,
+      "btc_entry": 76844.29,
+      "btc_exit": null,
+      "momentum": 0.23752,
+      "imbalance": 0.488,
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1777598100",
       "ts": 1777597892076,
       "side": "NO",
@@ -1286,19 +1299,6 @@
       "imbalance": -0.222,
       "outcome": 1,
       "pnl": 17.43
-    },
-    {
-      "event": "btc-updown-5m-1777322700",
-      "ts": 1777322435958,
-      "side": "NO",
-      "entry": 0.5126,
-      "size": 20.33,
-      "btc_entry": 76969.96,
-      "btc_exit": 76842.8,
-      "momentum": 0.46252,
-      "imbalance": 0.057,
-      "outcome": 1,
-      "pnl": 19.33
     }
   ],
   "metrics": {
