@@ -75,6 +75,7 @@ def backtest(
         payload = {
             "lgbm": result.lgbm, "xgb": result.xgb,
             "lstm_state": None, "weights": result.weights,
+            "metrics": result.metrics, "flip": result.flip,
         }
 
         X_test = test_df[FEATURE_COLS].replace([np.inf, -np.inf], 0).fillna(0)

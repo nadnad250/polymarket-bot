@@ -159,10 +159,16 @@ class PolymarketClient:
             return None
         yes_id, no_id = tokens
         try:
-            yes_price = self.get_midpoint(yes_id)
-            no_price = self.get_midpoint(no_id)
+            # Decision prices must be executable-ish. Midpoints look nicer on a
+            # chart but systematically overstate edge on illiquid 5m markets.
+            yes_price = self.get_price(yes_id, side="BUY")
+            no_price = self.get_price(no_id, side="BUY")
         except Exception:
-            return None
+            try:
+                yes_price = self.get_midpoint(yes_id)
+                no_price = self.get_midpoint(no_id)
+            except Exception:
+                return None
 
         return MarketSnapshot(
             event_slug=event.get("slug", ""),

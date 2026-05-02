@@ -44,11 +44,11 @@ def train_model():
     print(f"[+] Entraînement sur {len(df):,} ticks...")
     feats = build_features(df)
     result = train(feats)
-    print(f"\n[✓] Métriques: {result.metrics}")
+    print(f"\n[ok] Métriques: {result.metrics}")
     print(f"\nTop features:\n{result.feature_importance.head(10)}")
 
     save_model(result.model, "data/model_lgbm.pkl")
-    print("\n[✓] Modèle sauvegardé : data/model_lgbm.pkl")
+    print("\n[ok] Modèle sauvegardé : data/model_lgbm.pkl")
 
 
 def main():

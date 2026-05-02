@@ -76,7 +76,7 @@ function setSignedValue(id, v, unit = "%") {
 // --- Freshness indicator ---
 function getDataTimestamp(latest) {
   if (!latest) return null;
-  const candidate = latest.updated_at || latest.ts;
+  const candidate = latest.ts || latest.updated_at;
   if (!candidate) return null;
   const d = new Date(candidate);
   return isNaN(d.getTime()) ? null : d.getTime();
@@ -361,6 +361,22 @@ function renderModel(metrics) {
   setText("m-brier", m.brier != null ? m.brier.toFixed(4) : "—");
   setText("m-logloss", m.logloss != null ? m.logloss.toFixed(4) : "—");
   setText("m-train", m.n_train != null ? fmt.num(m.n_train) : "—");
+  const statusEl = document.getElementById("m-status");
+  if (statusEl) {
+    if (m.tradeable === true) {
+      statusEl.textContent = "Tradable";
+      statusEl.title = "Les garde-fous modele autorisent les trades ML.";
+      statusEl.className = "mval pos";
+    } else if (m.tradeable === false) {
+      statusEl.textContent = "Protection";
+      statusEl.title = m.trade_block_reason || "Modele bloque par les garde-fous.";
+      statusEl.className = "mval neg";
+    } else {
+      statusEl.textContent = "—";
+      statusEl.title = "";
+      statusEl.className = "mval";
+    }
+  }
   if (dateEl) {
     dateEl.textContent = metrics.trained_at
       ? new Date(metrics.trained_at).toLocaleString("fr-FR")

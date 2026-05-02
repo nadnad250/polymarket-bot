@@ -11,12 +11,17 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import sys
 from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from config import DB_PATH, INITIAL_CAPITAL
 from src.simulator.live_loop import TRADES_DB
@@ -157,7 +162,7 @@ def main() -> None:
     (PUBLIC_DATA / "trades.json").write_text(json.dumps(trades_data, indent=2))
     (PUBLIC_DATA / "metrics.json").write_text(json.dumps(model_metrics, indent=2))
 
-    print(f"[export] ✓ public/data/ mis à jour ({len(ticks_data)} ticks, {len(trades_data.get('trades', []))} trades)")
+    print(f"[export] ok public/data/ mis a jour ({len(ticks_data)} ticks, {len(trades_data.get('trades', []))} trades)")
 
 
 if __name__ == "__main__":

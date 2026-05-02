@@ -23,6 +23,7 @@ from pathlib import Path
 from config import DB_PATH, INITIAL_CAPITAL
 from src.fetchers.btc import BTCFetcher
 from src.fetchers.polymarket import PolymarketClient
+from src.simulator.fees import DEFAULT_FEES
 
 POLL_SEC = 10
 SIM_SUMMARY_PATH = Path("data/sim_summary.json")
@@ -111,12 +112,13 @@ def resolve_trade(trade: LiveTrade, btc_exit: float) -> LiveTrade:
     trade.outcome = 1 if won else 0
     trade.resolved_at = int(time.time() * 1000)
     trade.btc_exit = btc_exit
-    # Simplification : payout 1:1 à la cote d'entrée
+    gas = DEFAULT_FEES.gas_fee_usd * 2
+    # Simplification : payout 1:1 a la cote d'entree, net de gas entry+claim.
     if won:
         payout = trade.size_usd / trade.entry_price
-        trade.pnl = payout - trade.size_usd
+        trade.pnl = payout - trade.size_usd - gas
     else:
-        trade.pnl = -trade.size_usd
+        trade.pnl = -trade.size_usd - gas
     return trade
 
 
@@ -174,9 +176,9 @@ def run() -> None:
                     save_trade(open_trade)
                     status = "WIN " if open_trade.outcome else "LOSS"
                     print(
-                        f"[{datetime.now():%H:%M:%S}] ✓ {status} "
-                        f"{open_trade.side} @{open_trade.entry_price:.3f} → "
-                        f"BTC {open_trade.btc_entry:.0f}→{btc_now:.0f} | "
+                        f"[{datetime.now():%H:%M:%S}] {status} "
+                        f"{open_trade.side} @{open_trade.entry_price:.3f} -> "
+                        f"BTC {open_trade.btc_entry:.0f}->{btc_now:.0f} | "
                         f"PnL ${open_trade.pnl:+.2f} | cash ${cash:.2f}"
                     )
                     open_trade = None
@@ -222,7 +224,7 @@ def run() -> None:
                     trades.append(open_trade)
                     current_slug = slug
                     print(
-                        f"[{datetime.now():%H:%M:%S}] ▶ BUY {side} @{entry_price:.3f} "
+                        f"[{datetime.now():%H:%M:%S}] BUY {side} @{entry_price:.3f} "
                         f"size=${size_usd:.2f} | BTC={btc_price:.0f} "
                         f"mom={momentum:+.4f} imb={imbalance:+.2f}"
                     )

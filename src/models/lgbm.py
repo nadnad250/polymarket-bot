@@ -58,6 +58,8 @@ def train(
             f"Pas assez de données pour entraîner ({len(X)} lignes). "
             "Collecte au moins quelques heures de ticks avant."
         )
+    if y.nunique() < 2:
+        raise ValueError("Labels training mono-classe, modele non fiable")
 
     # Last 20% = test hold-out
     split = int(len(X) * 0.8)
@@ -89,7 +91,7 @@ def train(
         "n_test": len(X_test),
         "accuracy": float((preds == y_test.values).mean()),
         "auc": float(roc_auc_score(y_test, probs)) if y_test.nunique() > 1 else None,
-        "logloss": float(log_loss(y_test, probs.clip(1e-6, 1 - 1e-6))),
+        "logloss": float(log_loss(y_test, probs.clip(1e-6, 1 - 1e-6), labels=[0, 1])),
         "brier": float(brier_score_loss(y_test, probs)),
         "base_rate": float(y_train.mean()),
     }

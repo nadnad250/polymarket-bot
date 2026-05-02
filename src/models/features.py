@@ -21,11 +21,72 @@ Features utilisées :
 """
 from __future__ import annotations
 
+import re
+
 import numpy as np
 import pandas as pd
 
 
 HORIZON_SEC = 300  # 5 minutes
+LABEL_MIN_ENTRY_SEC = 30
+LABEL_MAX_DELAY_SEC = 180
+_EVENT_CLOSE_RE = re.compile(r"(\d{10})$")
+
+
+def _infer_poll_sec(df: pd.DataFrame, default: int = 5) -> int:
+    """Infer the dominant sampling cadence from timestamps."""
+    if "ts" not in df or len(df) < 2:
+        return default
+    ts = pd.to_numeric(df["ts"], errors="coerce").dropna().sort_values().to_numpy()
+    gaps = np.diff(ts) / 1000.0
+    gaps = gaps[np.isfinite(gaps) & (gaps > 0)]
+    if len(gaps) == 0:
+        return default
+    usable = gaps[gaps <= 600]
+    if len(usable) < max(10, int(len(gaps) * 0.1)):
+        usable = gaps
+    rounded = np.maximum(1, np.rint(usable)).astype(int)
+    values, counts = np.unique(rounded, return_counts=True)
+    return int(values[np.argmax(counts)]) if len(values) else default
+
+
+def _rows_for(seconds: int, poll_sec: int) -> int:
+    return max(1, int(round(seconds / max(1, poll_sec))))
+
+
+def _parse_event_close_ms(value: object) -> float:
+    if not isinstance(value, str):
+        return np.nan
+    match = _EVENT_CLOSE_RE.search(value)
+    if not match:
+        return np.nan
+    return float(int(match.group(1)) * 1000)
+
+
+def _future_price_from_event_close(df: pd.DataFrame) -> pd.Series:
+    """Use BTC price near the actual Polymarket event close for labels."""
+    if "poly_market" not in df:
+        return pd.Series(np.nan, index=df.index, dtype=float)
+
+    ts = pd.to_numeric(df["ts"], errors="coerce").to_numpy(dtype=float)
+    price = pd.to_numeric(df["btc_price"], errors="coerce").to_numpy(dtype=float)
+    close_ms = df["poly_market"].map(_parse_event_close_ms).to_numpy(dtype=float)
+    future = np.full(len(df), np.nan, dtype=float)
+
+    for i, close_ts in enumerate(close_ms):
+        if not np.isfinite(close_ts) or not np.isfinite(ts[i]):
+            continue
+        seconds_to_close = (close_ts - ts[i]) / 1000.0
+        if seconds_to_close < LABEL_MIN_ENTRY_SEC:
+            continue
+        j = int(np.searchsorted(ts, close_ts, side="left"))
+        if j >= len(df):
+            continue
+        delay_sec = (ts[j] - close_ts) / 1000.0
+        if 0 <= delay_sec <= LABEL_MAX_DELAY_SEC and np.isfinite(price[j]):
+            future[i] = price[j]
+
+    return pd.Series(future, index=df.index, dtype=float)
 
 
 def _rolling_std(series: pd.Series, window: int) -> pd.Series:
@@ -44,34 +105,36 @@ def _ema(series: pd.Series, span: int) -> pd.Series:
     return series.ewm(span=span, adjust=False, min_periods=1).mean()
 
 
-def build_features(df: pd.DataFrame, poll_sec: int = 5) -> pd.DataFrame:
+def build_features(df: pd.DataFrame, poll_sec: int | None = None) -> pd.DataFrame:
     """Construit les features depuis un DataFrame de ticks bruts.
 
     Le DataFrame doit être trié par ts croissant et contenir :
     ts, btc_price, btc_bid, btc_ask, btc_ob_imb, poly_yes, poly_no
     """
     df = df.sort_values("ts").reset_index(drop=True).copy()
+    if poll_sec is None:
+        poll_sec = _infer_poll_sec(df)
     df["ts"] = pd.to_numeric(df["ts"])
     df["dt"] = pd.to_datetime(df["ts"], unit="ms")
 
     # --- Returns multi-horizons ---
     for sec in (30, 60, 180, 300):
-        n = max(1, sec // poll_sec)
+        n = _rows_for(sec, poll_sec)
         df[f"ret_{sec}s"] = df["btc_price"].pct_change(n).fillna(0)
 
     # --- Volatilité ---
     for sec in (60, 300):
-        n = max(1, sec // poll_sec)
+        n = _rows_for(sec, poll_sec)
         df[f"vol_{sec}s"] = _rolling_std(df["ret_30s"], n)
 
     # --- Momentum ---
     df["rsi_14"] = _rsi(df["btc_price"], 14)
-    df["mom_1m"] = df["btc_price"] - df["btc_price"].shift(60 // poll_sec).fillna(df["btc_price"])
-    df["mom_5m"] = df["btc_price"] - df["btc_price"].shift(300 // poll_sec).fillna(df["btc_price"])
+    df["mom_1m"] = df["btc_price"] - df["btc_price"].shift(_rows_for(60, poll_sec)).fillna(df["btc_price"])
+    df["mom_5m"] = df["btc_price"] - df["btc_price"].shift(_rows_for(300, poll_sec)).fillna(df["btc_price"])
 
     # --- Orderbook / microstructure ---
     df["ob_imb"] = df["btc_ob_imb"].fillna(0)
-    df["ob_imb_avg_30s"] = df["ob_imb"].rolling(30 // poll_sec, min_periods=1).mean()
+    df["ob_imb_avg_30s"] = df["ob_imb"].rolling(_rows_for(30, poll_sec), min_periods=1).mean()
     df["spread"] = (df["btc_ask"] - df["btc_bid"]).fillna(0)
     df["spread_pct"] = df["spread"] / df["btc_price"]
 
@@ -105,14 +168,14 @@ def build_features(df: pd.DataFrame, poll_sec: int = 5) -> pd.DataFrame:
     df["vwap_dev_pct"] = ((df["btc_price"] - cum_price) / safe_price).fillna(0)
 
     # --- Z-score du return 60s sur fenêtre 60s ---
-    n60 = max(1, 60 // poll_sec)
+    n60 = _rows_for(60, poll_sec)
     ret60_mean = df["ret_60s"].rolling(n60, min_periods=1).mean()
     ret60_std = df["ret_60s"].rolling(n60, min_periods=1).std().replace(0, np.nan)
     df["ret_zscore_60"] = ((df["ret_60s"] - ret60_mean) / ret60_std).fillna(0)
 
     # --- Variations + vélocité Polymarket ---
-    n30p = max(1, 30 // poll_sec)
-    n60p = max(1, 60 // poll_sec)
+    n30p = _rows_for(30, poll_sec)
+    n60p = _rows_for(60, poll_sec)
     df["poly_yes_diff_30s"] = df["poly_yes"].diff(n30p).fillna(0)
     df["poly_yes_diff_60s"] = df["poly_yes"].diff(n60p).fillna(0)
     df["poly_yes_velocity"] = (df["poly_yes_diff_60s"] / 60.0).fillna(0)
@@ -126,10 +189,23 @@ def build_features(df: pd.DataFrame, poll_sec: int = 5) -> pd.DataFrame:
     safe_vol_300 = df["vol_300s"].replace(0, np.nan)
     df["volatility_ratio"] = (df["vol_60s"] / safe_vol_300).fillna(1.0)
 
-    # --- Label : BTC a-t-il monté dans HORIZON_SEC secondes ? ---
-    shift_n = HORIZON_SEC // poll_sec
-    df["future_price"] = df["btc_price"].shift(-shift_n)
-    df["label"] = (df["future_price"] > df["btc_price"]).astype(int)
+    # --- Label : BTC a-t-il monte a la cloture du marche 5m ? ---
+    event_future = _future_price_from_event_close(df)
+    has_event_closes = (
+        "poly_market" in df
+        and df["poly_market"].map(_parse_event_close_ms).notna().any()
+    )
+    if has_event_closes:
+        df["future_price"] = event_future
+    else:
+        shift_n = _rows_for(HORIZON_SEC, poll_sec)
+        df["future_price"] = df["btc_price"].shift(-shift_n)
+
+    df["label"] = np.where(
+        df["future_price"].notna(),
+        (df["future_price"] > df["btc_price"]).astype(int),
+        np.nan,
+    )
     df["future_return"] = (df["future_price"] - df["btc_price"]) / df["btc_price"]
 
     return df
@@ -156,5 +232,5 @@ def get_xy(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     """Extrait X, y prêts pour training en gardant uniquement lignes avec label."""
     clean = df.dropna(subset=["future_price"]).copy()
     X = clean[FEATURE_COLS].replace([np.inf, -np.inf], 0).fillna(0)
-    y = clean["label"]
+    y = clean["label"].astype(int)
     return X, y

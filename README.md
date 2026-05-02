@@ -19,7 +19,7 @@
    - **XGBoost** (boosting complémentaire)
    - **LSTM PyTorch** (séquentiel, capte la dynamique)
    - Pondération optimisée sur Brier score
-3. **Paper trade $1000** — ouvre un trade par event 5min si edge ≥ 3%
+3. **Paper trade $1000** — ouvre un trade seulement si le modèle est validé et edge net élevé
 4. **Dashboard live** auto-déployé → voir perf en direct sur GitHub Pages
 
 ## 🧠 Stratégie
@@ -31,8 +31,9 @@ edge_YES = P(up) - P_YES
 edge_NO  = (1 - P(up)) - (1 - P_YES)
 ```
 
-Si `max(edge) ≥ 3%` → ouverture position via **Kelly fractionnaire** (max 2% du capital).
+Si `max(edge)` couvre le seuil de sécurité + coûts → ouverture position via **Kelly fractionnaire** (max 1% du capital).
 Frais modélisés : gas Polygon ~$0.05/tx + spread 2% + slippage 0.5%.
+La baseline momentum/orderbook est désactivée par défaut (`ALLOW_BASELINE_TRADES=0`) pour éviter les trades heuristiques non validés.
 
 ## 📊 Dashboard
 
@@ -107,8 +108,8 @@ Les 3 workflows se lancent automatiquement :
 
 | Workflow | Fréquence | Rôle |
 |---|---|---|
-| `collect.yml` | toutes les 5 min | 1 tick + inférence + simulate, commit la DB |
-| `train.yml` | toutes les 6h | re-entraîne l'ensemble ML, commit le modèle |
+| `collect.yml` | toutes les 5 min | suit l'event jusqu'à clôture, inférence protégée, commit la DB |
+| `train.yml` | toutes les 6h | re-entraîne seulement avec labels 5m valides, commit le modèle |
 | `pages.yml` | sur push `public/**` | redéploie le dashboard |
 
 Le dashboard sera en ligne sur `https://<user>.github.io/polymarket-bot/` sous ~2 min.
@@ -165,7 +166,7 @@ polymarket-bot/
 - 5 min BTC up/down est proche du bruit statistique (edge typique 1-3%).
 - Frais + spread Polymarket bouffent ~2% d'edge → backtester critique.
 - Paper trading obligatoire pendant ≥ 2 semaines avant argent réel.
-- Jamais plus de 2% du capital par trade.
+- Jamais plus de 1% du capital par trade par défaut.
 - `--no-verify` et skip de hooks interdits.
 
 ## 📜 Licence

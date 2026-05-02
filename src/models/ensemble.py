@@ -28,15 +28,26 @@ class EnsembleResult:
     flip: bool = False
 
 
+def _calibrated_or_base(base, X_tr, y_tr):
+    class_counts = pd.Series(y_tr).value_counts()
+    min_class = int(class_counts.min()) if len(class_counts) else 0
+    if min_class < 2:
+        base.fit(X_tr, y_tr)
+        return base
+    cv = min(3, min_class)
+    method = "sigmoid" if len(X_tr) < 1000 else "isotonic"
+    clf = CalibratedClassifierCV(base, method=method, cv=cv)
+    clf.fit(X_tr, y_tr)
+    return clf
+
+
 def _train_lgbm(X_tr, y_tr):
     base = lgb.LGBMClassifier(
         n_estimators=400, learning_rate=0.03, num_leaves=31,
         min_child_samples=20, reg_alpha=0.1, reg_lambda=0.1,
         objective="binary", verbose=-1,
     )
-    clf = CalibratedClassifierCV(base, method="isotonic", cv=3)
-    clf.fit(X_tr, y_tr)
-    return clf
+    return _calibrated_or_base(base, X_tr, y_tr)
 
 
 def _train_xgb(X_tr, y_tr):
@@ -45,15 +56,15 @@ def _train_xgb(X_tr, y_tr):
         subsample=0.8, colsample_bytree=0.8,
         eval_metric="logloss", verbosity=0,
     )
-    clf = CalibratedClassifierCV(base, method="isotonic", cv=3)
-    clf.fit(X_tr, y_tr)
-    return clf
+    return _calibrated_or_base(base, X_tr, y_tr)
 
 
 def train_ensemble(df_features: pd.DataFrame, use_lstm: bool = True) -> EnsembleResult:
     X, y = get_xy(df_features)
     if len(X) < 150:
         raise ValueError(f"Pas assez de data ensemble ({len(X)} < 150)")
+    if y.nunique() < 2:
+        raise ValueError("Labels training mono-classe, modele non fiable")
 
     split = int(len(X) * 0.8)
     X_tr, X_te = X.iloc[:split], X.iloc[split:]
@@ -117,7 +128,7 @@ def train_ensemble(df_features: pd.DataFrame, use_lstm: bool = True) -> Ensemble
         "auc_raw": auc_raw,
         "flip": bool(flip_needed),
         "brier": float(brier_score_loss(y_te, p_ens)),
-        "logloss": float(log_loss(y_te, p_ens.clip(1e-6, 1 - 1e-6))),
+        "logloss": float(log_loss(y_te, p_ens.clip(1e-6, 1 - 1e-6), labels=[0, 1])),
         "base_rate": float(y_tr.mean()),
         "brier_lgbm": float(brier_score_loss(y_te, p_lgbm)),
         "brier_xgb": float(brier_score_loss(y_te, p_xgb)),
@@ -138,7 +149,7 @@ def _optimize_weights(probs_list: list[np.ndarray], y: np.ndarray) -> list[float
     n = len(probs_list)
 
     if n == 2:
-        for w1 in np.arange(0.1, 1.0, 0.1):
+        for w1 in np.arange(0.0, 1.01, 0.1):
             w2 = 1 - w1
             p = w1 * probs_list[0] + w2 * probs_list[1]
             s = brier_score_loss(y, p)
@@ -146,10 +157,10 @@ def _optimize_weights(probs_list: list[np.ndarray], y: np.ndarray) -> list[float
                 best_score = s
                 best = [w1, w2]
     else:
-        for w1 in np.arange(0.1, 0.9, 0.1):
-            for w2 in np.arange(0.1, 1.0 - w1, 0.1):
+        for w1 in np.arange(0.0, 1.01, 0.1):
+            for w2 in np.arange(0.0, 1.01 - w1, 0.1):
                 w3 = 1 - w1 - w2
-                if w3 < 0.05:
+                if w3 < -1e-9:
                     continue
                 p = w1 * probs_list[0] + w2 * probs_list[1] + w3 * probs_list[2]
                 s = brier_score_loss(y, p)

@@ -171,14 +171,29 @@ class BTCFetcher:
         return self.get_book_ticker().price
 
     def get_klines(self, limit: int = 60) -> list[list]:
-        """1min klines pour calcul momentum."""
+        """1min klines pour calcul momentum, toujours en ordre chronologique."""
         if self._source == "coinbase":
             r = self._client.get(
                 "https://api.exchange.coinbase.com/products/BTC-USD/candles",
                 params={"granularity": 60},
             )
             r.raise_for_status()
-            return r.json()[:limit]  # [time, low, high, open, close, volume]
+            data = sorted(r.json(), key=lambda row: row[0])
+            return data[-limit:]  # [time, low, high, open, close, volume]
+        if self._source == "kraken":
+            try:
+                r = self._client.get(
+                    "https://api.kraken.com/0/public/OHLC",
+                    params={"pair": "XBTUSD", "interval": 1},
+                )
+                r.raise_for_status()
+                result = r.json().get("result", {})
+                key = next((k for k in result if k != "last"), None)
+                rows = result.get(key, []) if key else []
+                data = sorted(rows, key=lambda row: row[0])
+                return data[-limit:]  # [time, open, high, low, close, ...]
+            except Exception:
+                return []
         try:
             r = self._client.get(
                 "https://api.binance.com/api/v3/klines",

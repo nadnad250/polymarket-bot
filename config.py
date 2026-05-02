@@ -20,8 +20,19 @@ BINANCE_WS_URL = "wss://stream.binance.com:9443/ws"
 
 # Simulateur
 INITIAL_CAPITAL = float(os.getenv("INITIAL_CAPITAL", 1000))
-MAX_POSITION_PCT = float(os.getenv("MAX_POSITION_PCT", 0.02))
+MAX_POSITION_PCT = float(os.getenv("MAX_POSITION_PCT", 0.01))
 KELLY_FRACTION = float(os.getenv("KELLY_FRACTION", 0.25))
+
+# Garde-fous trading/paper trading
+MIN_TRADE_EDGE = float(os.getenv("MIN_TRADE_EDGE", 0.08))
+MIN_MODEL_AUC = float(os.getenv("MIN_MODEL_AUC", 0.54))
+MAX_MODEL_BRIER = float(os.getenv("MAX_MODEL_BRIER", 0.245))
+MAX_MODEL_LOGLOSS = float(os.getenv("MAX_MODEL_LOGLOSS", 0.72))
+MIN_MODEL_TEST_ROWS = int(os.getenv("MIN_MODEL_TEST_ROWS", 100))
+MIN_TRAIN_LABELS = int(os.getenv("MIN_TRAIN_LABELS", 300))
+MIN_SECONDS_TO_CLOSE = int(os.getenv("MIN_SECONDS_TO_CLOSE", 45))
+MAX_OPEN_POSITIONS = int(os.getenv("MAX_OPEN_POSITIONS", 1))
+ALLOW_BASELINE_TRADES = os.getenv("ALLOW_BASELINE_TRADES", "0").lower() in {"1", "true", "yes"}
 
 # Frais Polymarket (indicatifs)
 POLYMARKET_FEE = 0.0              # 0% mais spread ~1-2%
