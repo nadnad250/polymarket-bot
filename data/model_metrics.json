@@ -1,10 +1,10 @@
 {
-  "trained_at": "2026-05-02T20:50:23.409545+00:00",
+  "trained_at": "2026-05-03T00:36:40.202501+00:00",
   "metrics": {
     "tradeable": false,
-    "trade_block_reason": "pas assez de labels valides (162 < 300)",
-    "n_trainable_labels": 162
+    "trade_block_reason": "pas assez de labels valides (259 < 300)",
+    "n_trainable_labels": 259
   },
   "weights": {},
-  "n_ticks_used": 554
+  "n_ticks_used": 697
 }
