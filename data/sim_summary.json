@@ -1,9 +1,9 @@
 {
-  "cash": 938.77,
+  "cash": 929.38,
   "total_trades": 182,
-  "open_positions": 0,
+  "open_positions": 1,
   "win_rate": 0.5,
   "total_pnl": -61.23,
-  "roi_pct": -6.12,
-  "updated_at": "2026-05-05T20:00:35.497632"
+  "roi_pct": -7.06,
+  "updated_at": "2026-05-05T20:30:35.350205"
 }
