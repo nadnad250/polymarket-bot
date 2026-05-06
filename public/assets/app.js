@@ -384,18 +384,78 @@ function renderModel(metrics) {
   }
 }
 
+function renderDecision(decision) {
+  if (!decision || Object.keys(decision).length === 0) return;
+  const p = decision.primary || {};
+  const actionEl = document.getElementById("decision-action");
+  const reasonEl = document.getElementById("decision-reason");
+  const pupEl = document.getElementById("decision-pup");
+  const edgeEl = document.getElementById("decision-edge");
+  const qEl = document.getElementById("decision-quality");
+  const reqEl = document.getElementById("decision-required");
+
+  const opened = p.action === "open" || p.should_open === true;
+  if (actionEl) {
+    actionEl.textContent = opened ? `OPEN ${p.side || ""}` : "SKIP";
+    actionEl.className = "decision-status " + (opened ? "pos" : "watch");
+  }
+  const reasons = Array.isArray(p.reasons) ? p.reasons : [];
+  if (reasonEl) {
+    reasonEl.textContent = opened
+      ? `${p.source || "paper"} edge=${Number(p.edge || 0).toFixed(3)}`
+      : (reasons.join(" | ") || decision.model?.block_reason || "Protection active");
+  }
+  if (pupEl) pupEl.textContent = p.p_up != null ? (p.p_up * 100).toFixed(1) + "%" : "--";
+  if (edgeEl) {
+    edgeEl.textContent = p.edge != null ? (p.edge * 100).toFixed(2) + "%" : "--";
+    edgeEl.className = p.edge > 0 ? "pos" : p.edge < 0 ? "neg" : "";
+  }
+  if (qEl) qEl.textContent = p.quality_score != null ? Number(p.quality_score).toFixed(1) : "--";
+  if (reqEl) reqEl.textContent = p.required_edge != null ? (p.required_edge * 100).toFixed(2) + "%" : "--";
+}
+
+function renderShadow(shadow) {
+  if (!shadow || !shadow.metrics) return;
+  const m = shadow.metrics;
+  const r = shadow.readiness || {};
+  const statusEl = document.getElementById("shadow-readiness");
+  const subEl = document.getElementById("shadow-readiness-sub");
+  if (statusEl) {
+    statusEl.textContent = r.label || "Demo seulement";
+    statusEl.className = "decision-status " + (r.status === "candidate" ? "pos" : r.status === "watch" ? "watch" : "neg");
+  }
+  if (subEl) {
+    subEl.textContent = `${r.passed || 0}/${r.total || 4} criteres valides avant argent reel.`;
+  }
+  const st = document.getElementById("shadow-trades");
+  if (st) st.textContent = m.total_trades || 0;
+  const sw = document.getElementById("shadow-wr");
+  if (sw) sw.textContent = m.win_rate != null ? (m.win_rate * 100).toFixed(1) + "%" : "--";
+  const sr = document.getElementById("shadow-roi");
+  if (sr) {
+    sr.textContent = fmt.pct(m.roi_pct || 0);
+    sr.className = (m.roi_pct || 0) > 0 ? "pos" : (m.roi_pct || 0) < 0 ? "neg" : "";
+  }
+  const sd = document.getElementById("shadow-dd");
+  if (sd) sd.textContent = (m.max_drawdown_pct || 0).toFixed(2) + "%";
+}
+
 // --- Main refresh loop ---
 async function refresh({ force = false } = {}) {
-  const [latest, ticks, trades, model] = await Promise.all([
+  const [latest, ticks, trades, model, decision, shadow] = await Promise.all([
     fetchJSON("latest.json", { force }),
     fetchJSON("ticks.json", { force }),
     fetchJSON("trades.json", { force }),
     fetchJSON("metrics.json", { force }),
+    fetchJSON("decision.json", { force }),
+    fetchJSON("shadow.json", { force }),
   ]);
   if (latest) renderLatest(latest);
   if (ticks) renderTicks(ticks);
   if (trades) renderTrades(trades);
   if (model) renderModel(model);
+  if (decision) renderDecision(decision);
+  if (shadow) renderShadow(shadow);
   // Si pas de latest, on affiche quand même un état stale
   if (!latest) renderFreshness(null);
 }
