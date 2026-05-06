@@ -1,0 +1,85 @@
+{
+  "mode": "paper_demo",
+  "event_slug": "btc-updown-5m-1778088000",
+  "question": "Bitcoin Up or Down - May 6, 1:20PM-1:25PM ET",
+  "seconds_to_close": 494.414838,
+  "btc_price": 81450.005,
+  "polymarket": {
+    "yes": 0.5,
+    "no": 0.49,
+    "volume_24h": 7.0
+  },
+  "model": {
+    "loaded": true,
+    "tradeable": true,
+    "block_reason": "ok",
+    "metrics": {
+      "n_train": 1030,
+      "n_test": 258,
+      "accuracy": 0.6007751937984496,
+      "auc": 0.6108968177434908,
+      "auc_raw": 0.38910318225650914,
+      "flip": true,
+      "brier": 0.24335490511829247,
+      "logloss": 0.6797813667597342,
+      "base_rate": 0.4747572815533981,
+      "brier_lgbm": 0.24467177307267832,
+      "brier_xgb": 0.24225215045637818,
+      "tradeable": true,
+      "trade_block_reason": "ok"
+    }
+  },
+  "primary": {
+    "action": "skip",
+    "source": "ml",
+    "side": "NO",
+    "price": 0.49,
+    "edge": 0.017730596128825216,
+    "p_up": 0.4922694038711748,
+    "confidence": 0.007730596128825207,
+    "required_edge": 0.095,
+    "quality_score": 38.66,
+    "size_pct": 0.0,
+    "reasons": [
+      "confidence 0.008 < 0.100",
+      "edge 0.018 < required 0.095",
+      "quality 38.7 < 55.0"
+    ],
+    "details": {
+      "edges": {
+        "YES": -0.007730596128825207,
+        "NO": 0.017730596128825216
+      },
+      "model_auc": 0.6108968177434908
+    },
+    "should_open": false
+  },
+  "shadow": {
+    "action": "open",
+    "source": "shadow_ml",
+    "side": "NO",
+    "price": 0.49,
+    "edge": 0.017730596128825216,
+    "p_up": 0.4922694038711748,
+    "confidence": 0.007730596128825207,
+    "required_edge": 0.005,
+    "quality_score": 71.39,
+    "size_pct": 0.0,
+    "reasons": [],
+    "details": {
+      "edges": {
+        "YES": -0.007730596128825207,
+        "NO": 0.017730596128825216
+      }
+    },
+    "should_open": true
+  },
+  "thresholds": {
+    "min_trade_edge": 0.08,
+    "min_model_confidence": 0.1,
+    "min_decision_quality": 55.0,
+    "shadow_min_edge": 0.005,
+    "shadow_min_confidence": 0.005
+  },
+  "updated_at": "2026-05-06T17:16:46.945935+00:00"
+}

@@ -1,0 +1,65 @@
+{
+  "trades": [
+    {
+      "event": "btc-updown-5m-1778088000",
+      "ts": 1778087806943,
+      "side": "NO",
+      "entry": 0.4973,
+      "size": 0.92,
+      "btc_entry": 81450.01,
+      "btc_exit": null,
+      "p_up": 0.4923,
+      "edge": 0.0177,
+      "score": 71.4,
+      "source": "shadow_ml",
+      "reason": "confidence 0.008 < 0.100; edge 0.018 < required 0.095; quality 38.7 < 55.0",
+      "outcome": null,
+      "pnl": 0.0
+    }
+  ],
+  "metrics": {
+    "total_trades": 0,
+    "open_positions": 0,
+    "win_rate": 0,
+    "total_pnl": 0,
+    "roi_pct": 0,
+    "avg_pnl": 0,
+    "avg_edge": 0,
+    "avg_score": 0,
+    "profit_factor": 0,
+    "max_drawdown_pct": 0,
+    "capital": 1000.0
+  },
+  "readiness": {
+    "status": "blocked",
+    "label": "Demo seulement",
+    "passed": 1,
+    "total": 4,
+    "checks": [
+      {
+        "name": "sample",
+        "ok": false,
+        "actual": 0,
+        "target": 200
+      },
+      {
+        "name": "win_rate",
+        "ok": false,
+        "actual": 0,
+        "target": 0.56
+      },
+      {
+        "name": "roi",
+        "ok": false,
+        "actual": 0,
+        "target": 3.0
+      },
+      {
+        "name": "drawdown",
+        "ok": true,
+        "actual": 0,
+        "target": 8.0
+      }
+    ]
+  }
+}
