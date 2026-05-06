@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778091000",
+      "ts": 1778090749019,
+      "side": "NO",
+      "entry": 0.4973,
+      "size": 0.92,
+      "btc_entry": 81458.48,
+      "btc_exit": null,
+      "p_up": 0.4923,
+      "edge": 0.0177,
+      "score": 71.4,
+      "source": "shadow_ml",
+      "reason": "confidence 0.008 < 0.100; edge 0.018 < required 0.095; quality 38.7 < 55.0",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778088900",
       "ts": 1778088636765,
       "side": "NO",
       "entry": 0.4669,
       "size": 0.92,
       "btc_entry": 81490.07,
-      "btc_exit": null,
+      "btc_exit": 81453.24,
       "p_up": 0.4923,
       "edge": 0.0477,
       "score": 70.3,
       "source": "shadow_ml",
       "reason": "confidence 0.008 < 0.100; edge 0.048 < required 0.095; quality 45.6 < 55.0",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 0.95
     },
     {
       "event": "btc-updown-5m-1778088000",
@@ -34,17 +50,17 @@
     }
   ],
   "metrics": {
-    "total_trades": 1,
+    "total_trades": 2,
     "open_positions": 1,
-    "win_rate": 0.0,
-    "total_pnl": -1.02,
-    "roi_pct": -0.1,
-    "avg_pnl": -1.02,
-    "avg_edge": 0.0177,
-    "avg_score": 71.4,
-    "profit_factor": 0.0,
+    "win_rate": 0.5,
+    "total_pnl": -0.07,
+    "roi_pct": -0.01,
+    "avg_pnl": -0.035,
+    "avg_edge": 0.0327,
+    "avg_score": 70.9,
+    "profit_factor": 0.93,
     "max_drawdown_pct": 0.0,
-    "capital": 998.98
+    "capital": 999.93
   },
   "readiness": {
     "status": "blocked",
@@ -55,19 +71,19 @@
       {
         "name": "sample",
         "ok": false,
-        "actual": 1,
+        "actual": 2,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.0,
+        "actual": 0.5,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -0.1,
+        "actual": -0.01,
         "target": 3.0
       },
       {
