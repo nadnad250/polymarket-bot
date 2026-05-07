@@ -1,6 +1,22 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778165100",
+      "ts": 1778165090024,
+      "side": "YES",
+      "entry": 0.5278,
+      "size": 0.93,
+      "btc_entry": 80181.71,
+      "btc_exit": null,
+      "p_up": 0.5789,
+      "edge": 0.0589,
+      "score": 77.9,
+      "source": "shadow_ml",
+      "reason": "confidence 0.079 < 0.100; edge 0.059 < required 0.095",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778159100",
       "ts": 1778159032973,
       "side": "YES",
@@ -147,7 +163,7 @@
   ],
   "metrics": {
     "total_trades": 9,
-    "open_positions": 0,
+    "open_positions": 1,
     "win_rate": 0.556,
     "total_pnl": 0.19,
     "roi_pct": 0.02,
