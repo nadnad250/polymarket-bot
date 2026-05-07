@@ -1,24 +1,24 @@
 {
-  "trained_at": "2026-05-06T18:36:46.243123+00:00",
+  "trained_at": "2026-05-07T00:36:42.632269+00:00",
   "metrics": {
-    "n_train": 1104,
-    "n_test": 276,
-    "accuracy": 0.5579710144927537,
-    "auc": 0.5,
-    "auc_raw": 0.5,
-    "flip": false,
-    "brier": 0.24762535524302365,
-    "logloss": 0.6883940789208037,
-    "base_rate": 0.4773550724637681,
-    "brier_lgbm": 0.24762535524302365,
-    "brier_xgb": 0.2552900694779765,
+    "n_train": 1193,
+    "n_test": 299,
+    "accuracy": 0.41471571906354515,
+    "auc": 0.5701552616446234,
+    "auc_raw": 0.4298447383553766,
+    "flip": true,
+    "brier": 0.26024631525775077,
+    "logloss": 0.7141875752323599,
+    "base_rate": 0.4786253143336127,
+    "brier_lgbm": 0.25894344438595857,
+    "brier_xgb": 0.2609915579585969,
     "tradeable": false,
-    "trade_block_reason": "auc < 0.54"
+    "trade_block_reason": "brier > 0.245"
   },
   "weights": {
-    "lgbm": 1.0,
-    "xgb": 0.0
+    "lgbm": 0.2,
+    "xgb": 0.8
   },
-  "n_ticks_used": 2473,
-  "n_trainable_labels": 1380
+  "n_ticks_used": 2647,
+  "n_trainable_labels": 1492
 }
