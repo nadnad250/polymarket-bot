@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778173500",
+      "ts": 1778173437921,
+      "side": "YES",
+      "entry": 0.5075,
+      "size": 0.93,
+      "btc_entry": 79848.01,
+      "btc_exit": null,
+      "p_up": 0.5789,
+      "edge": 0.0789,
+      "score": 78.6,
+      "source": "shadow_ml",
+      "reason": "confidence 0.079 < 0.100; edge 0.079 < required 0.095",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778171100",
       "ts": 1778170899435,
       "side": "YES",
       "entry": 0.5176,
       "size": 0.93,
       "btc_entry": 79795.05,
-      "btc_exit": null,
+      "btc_exit": 79850.01,
       "p_up": 0.5789,
       "edge": 0.0689,
       "score": 78.2,
       "source": "shadow_ml",
       "reason": "confidence 0.079 < 0.100; edge 0.069 < required 0.095",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 0.77
     },
     {
       "event": "btc-updown-5m-1778168400",
@@ -194,40 +210,40 @@
     }
   ],
   "metrics": {
-    "total_trades": 11,
+    "total_trades": 12,
     "open_positions": 1,
-    "win_rate": 0.545,
-    "total_pnl": 0.0,
-    "roi_pct": 0.0,
-    "avg_pnl": 0.0,
-    "avg_edge": 0.0384,
-    "avg_score": 82.2,
-    "profit_factor": 1.0,
+    "win_rate": 0.583,
+    "total_pnl": 0.77,
+    "roi_pct": 0.08,
+    "avg_pnl": 0.064,
+    "avg_edge": 0.041,
+    "avg_score": 81.9,
+    "profit_factor": 1.15,
     "max_drawdown_pct": 0.2,
-    "capital": 1000.0
+    "capital": 1000.77
   },
   "readiness": {
-    "status": "blocked",
-    "label": "Demo seulement",
-    "passed": 1,
+    "status": "watch",
+    "label": "A surveiller",
+    "passed": 2,
     "total": 4,
     "checks": [
       {
         "name": "sample",
         "ok": false,
-        "actual": 11,
+        "actual": 12,
         "target": 200
       },
       {
         "name": "win_rate",
-        "ok": false,
-        "actual": 0.545,
+        "ok": true,
+        "actual": 0.583,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": 0.0,
+        "actual": 0.08,
         "target": 3.0
       },
       {
