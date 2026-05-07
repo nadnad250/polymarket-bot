@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778171100",
+      "ts": 1778170899435,
+      "side": "YES",
+      "entry": 0.5176,
+      "size": 0.93,
+      "btc_entry": 79795.05,
+      "btc_exit": null,
+      "p_up": 0.5789,
+      "edge": 0.0689,
+      "score": 78.2,
+      "source": "shadow_ml",
+      "reason": "confidence 0.079 < 0.100; edge 0.069 < required 0.095",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778168400",
       "ts": 1778168277400,
       "side": "NO",
       "entry": 0.4973,
       "size": 0.93,
       "btc_entry": 80001.45,
-      "btc_exit": null,
+      "btc_exit": 79795.05,
       "p_up": 0.4822,
       "edge": 0.0278,
       "score": 72.3,
       "source": "shadow_ml",
       "reason": "confidence 0.018 < 0.100; edge 0.028 < required 0.095; quality 41.9 < 55.0",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 0.84
     },
     {
       "event": "btc-updown-5m-1778165100",
@@ -178,17 +194,17 @@
     }
   ],
   "metrics": {
-    "total_trades": 10,
+    "total_trades": 11,
     "open_positions": 1,
-    "win_rate": 0.5,
-    "total_pnl": -0.84,
-    "roi_pct": -0.08,
-    "avg_pnl": -0.084,
-    "avg_edge": 0.0395,
-    "avg_score": 83.2,
-    "profit_factor": 0.84,
+    "win_rate": 0.545,
+    "total_pnl": 0.0,
+    "roi_pct": 0.0,
+    "avg_pnl": 0.0,
+    "avg_edge": 0.0384,
+    "avg_score": 82.2,
+    "profit_factor": 1.0,
     "max_drawdown_pct": 0.2,
-    "capital": 999.16
+    "capital": 1000.0
   },
   "readiness": {
     "status": "blocked",
@@ -199,19 +215,19 @@
       {
         "name": "sample",
         "ok": false,
-        "actual": 10,
+        "actual": 11,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.5,
+        "actual": 0.545,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -0.08,
+        "actual": 0.0,
         "target": 3.0
       },
       {
