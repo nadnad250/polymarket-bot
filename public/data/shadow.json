@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778262600",
+      "ts": 1778262420246,
+      "side": "YES",
+      "entry": 0.5075,
+      "size": 0.93,
+      "btc_entry": 80180.38,
+      "btc_exit": null,
+      "p_up": null,
+      "edge": 0.0298,
+      "score": 95.0,
+      "source": "shadow_baseline",
+      "reason": "model_not_tradeable: brier > 0.245",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778260500",
       "ts": 1778260355322,
       "side": "NO",
       "entry": 0.4973,
       "size": 0.93,
       "btc_entry": 79643.04,
-      "btc_exit": null,
+      "btc_exit": 80183.22,
       "p_up": null,
       "edge": 0.0345,
       "score": 94.6,
       "source": "shadow_baseline",
       "reason": "model_not_tradeable: brier > 0.245",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 0,
+      "pnl": -1.03
     },
     {
       "event": "btc-updown-5m-1778256300",
@@ -434,46 +450,46 @@
     }
   ],
   "metrics": {
-    "total_trades": 26,
+    "total_trades": 27,
     "open_positions": 1,
-    "win_rate": 0.577,
-    "total_pnl": 1.08,
-    "roi_pct": 0.11,
-    "avg_pnl": 0.042,
-    "avg_edge": 0.0388,
-    "avg_score": 85.6,
-    "profit_factor": 1.1,
-    "max_drawdown_pct": 0.23,
-    "capital": 1001.08
+    "win_rate": 0.556,
+    "total_pnl": 0.05,
+    "roi_pct": 0.01,
+    "avg_pnl": 0.002,
+    "avg_edge": 0.0386,
+    "avg_score": 86.0,
+    "profit_factor": 1.0,
+    "max_drawdown_pct": 0.33,
+    "capital": 1000.05
   },
   "readiness": {
-    "status": "watch",
-    "label": "A surveiller",
-    "passed": 2,
+    "status": "blocked",
+    "label": "Demo seulement",
+    "passed": 1,
     "total": 4,
     "checks": [
       {
         "name": "sample",
         "ok": false,
-        "actual": 26,
+        "actual": 27,
         "target": 200
       },
       {
         "name": "win_rate",
-        "ok": true,
-        "actual": 0.577,
+        "ok": false,
+        "actual": 0.556,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": 0.11,
+        "actual": 0.01,
         "target": 3.0
       },
       {
         "name": "drawdown",
         "ok": true,
-        "actual": 0.23,
+        "actual": 0.33,
         "target": 8.0
       }
     ]
