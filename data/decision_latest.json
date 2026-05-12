@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1778592300",
-  "question": "Bitcoin Up or Down - May 12, 9:25AM-9:30AM ET",
-  "seconds_to_close": 518.977141,
-  "btc_price": 80646.505,
+  "event_slug": "btc-updown-5m-1778595300",
+  "question": "Bitcoin Up or Down - May 12, 10:15AM-10:20AM ET",
+  "seconds_to_close": 473.705322,
+  "btc_price": 80593.195,
   "polymarket": {
-    "yes": 0.51,
-    "no": 0.48,
-    "volume_24h": 273.086747
+    "yes": 0.5,
+    "no": 0.49,
+    "volume_24h": 108.55000000000001
   },
   "model": {
     "loaded": true,
@@ -31,40 +31,49 @@
     }
   },
   "primary": {
-    "action": "open",
+    "action": "skip",
     "source": "ml",
-    "side": "NO",
-    "price": 0.48,
-    "edge": 0.12039400618644325,
-    "p_up": 0.3996059938135568,
-    "confidence": 0.10039400618644317,
+    "side": "YES",
+    "price": 0.5,
+    "edge": 0.0428808718311382,
+    "p_up": 0.5428808718311382,
+    "confidence": 0.0428808718311382,
     "required_edge": 0.095,
-    "quality_score": 72.14,
+    "quality_score": 46.66,
+    "size_pct": 0.0,
+    "reasons": [
+      "confidence 0.043 < 0.100",
+      "edge 0.043 < required 0.095",
+      "quality 46.7 < 55.0"
+    ],
+    "details": {
+      "edges": {
+        "YES": 0.0428808718311382,
+        "NO": -0.03288087183113819
+      },
+      "model_auc": 0.5622072829131654
+    },
+    "should_open": false
+  },
+  "shadow": {
+    "action": "open",
+    "source": "shadow_ml",
+    "side": "YES",
+    "price": 0.5,
+    "edge": 0.0428808718311382,
+    "p_up": 0.5428808718311382,
+    "confidence": 0.0428808718311382,
+    "required_edge": 0.005,
+    "quality_score": 75.12,
     "size_pct": 0.0,
     "reasons": [],
     "details": {
       "edges": {
-        "YES": -0.11039400618644318,
-        "NO": 0.12039400618644325
-      },
-      "model_auc": 0.5622072829131654
+        "YES": 0.0428808718311382,
+        "NO": -0.03288087183113819
+      }
     },
     "should_open": true
-  },
-  "shadow": {
-    "action": "skip",
-    "source": "shadow",
-    "side": null,
-    "price": null,
-    "edge": null,
-    "p_up": null,
-    "confidence": null,
-    "required_edge": null,
-    "quality_score": 0.0,
-    "size_pct": 0.0,
-    "reasons": [],
-    "details": {},
-    "should_open": false
   },
   "thresholds": {
     "min_trade_edge": 0.08,
@@ -73,5 +82,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-12T13:21:22.244935+00:00"
+  "updated_at": "2026-05-12T14:12:07.558653+00:00"
 }
