@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1778578200",
-  "question": "Bitcoin Up or Down - May 12, 5:30AM-5:35AM ET",
-  "seconds_to_close": 547.238802,
-  "btc_price": 80695.985,
+  "event_slug": "btc-updown-5m-1778581200",
+  "question": "Bitcoin Up or Down - May 12, 6:20AM-6:25AM ET",
+  "seconds_to_close": 308.109109,
+  "btc_price": 80790.745,
   "polymarket": {
     "yes": 0.51,
-    "no": 0.48,
-    "volume_24h": 23.04
+    "no": 0.47,
+    "volume_24h": 214.20509300000003
   },
   "model": {
     "loaded": true,
@@ -34,46 +34,49 @@
     "action": "skip",
     "source": "ml",
     "side": "NO",
-    "price": 0.48,
-    "edge": 0.03795115924004788,
-    "p_up": 0.48204884075995214,
-    "confidence": 0.017951159240047865,
+    "price": 0.47,
+    "edge": 0.029761274517815073,
+    "p_up": 0.500238725482185,
+    "confidence": 0.00023872548218495382,
     "required_edge": 0.095,
-    "quality_score": 42.24,
+    "quality_score": 38.0,
     "size_pct": 0.0,
     "reasons": [
-      "confidence 0.018 < 0.100",
-      "edge 0.038 < required 0.095",
-      "quality 42.2 < 55.0"
+      "confidence 0.000 < 0.100",
+      "edge 0.030 < required 0.095",
+      "quality 38.0 < 55.0"
     ],
     "details": {
       "edges": {
-        "YES": -0.027951159240047874,
-        "NO": 0.03795115924004788
+        "YES": -0.009761274517815055,
+        "NO": 0.029761274517815073
       },
       "model_auc": 0.5622072829131654
     },
     "should_open": false
   },
   "shadow": {
-    "action": "open",
+    "action": "skip",
     "source": "shadow_ml",
     "side": "NO",
-    "price": 0.48,
-    "edge": 0.03795115924004788,
-    "p_up": 0.48204884075995214,
-    "confidence": 0.017951159240047865,
+    "price": 0.47,
+    "edge": 0.029761274517815073,
+    "p_up": 0.500238725482185,
+    "confidence": 0.00023872548218495382,
     "required_edge": 0.005,
-    "quality_score": 72.01,
+    "quality_score": 69.96,
     "size_pct": 0.0,
-    "reasons": [],
+    "reasons": [
+      "shadow_ml weak conf=0.000 edge=0.030 price=0.470",
+      "baseline not aligned mom=-0.00010 imb=+0.343"
+    ],
     "details": {
       "edges": {
-        "YES": -0.027951159240047874,
-        "NO": 0.03795115924004788
+        "YES": -0.009761274517815055,
+        "NO": 0.029761274517815073
       }
     },
-    "should_open": true
+    "should_open": false
   },
   "thresholds": {
     "min_trade_edge": 0.08,
@@ -82,5 +85,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-12T09:25:53.894154+00:00"
+  "updated_at": "2026-05-12T10:19:53.310933+00:00"
 }
