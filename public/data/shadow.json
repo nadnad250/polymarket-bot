@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778586900",
+      "ts": 1778586894546,
+      "side": "NO",
+      "entry": 0.4973,
+      "size": 0.93,
+      "btc_entry": 80743.83,
+      "btc_exit": null,
+      "p_up": 0.4948,
+      "edge": 0.0152,
+      "score": 71.1,
+      "source": "shadow_ml",
+      "reason": "confidence 0.005 < 0.100; edge 0.015 < required 0.095; quality 35.3 < 55.0",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778584500",
       "ts": 1778584247105,
       "side": "YES",
       "entry": 0.5176,
       "size": 0.93,
       "btc_entry": 80609.32,
-      "btc_exit": null,
+      "btc_exit": 80743.83,
       "p_up": 0.5375,
       "edge": 0.0275,
       "score": 74.2,
       "source": "shadow_ml",
       "reason": "confidence 0.038 < 0.100; edge 0.028 < required 0.095; quality 41.7 < 55.0",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 0.77
     },
     {
       "event": "btc-updown-5m-1778578200",
@@ -930,17 +946,17 @@
     }
   ],
   "metrics": {
-    "total_trades": 57,
+    "total_trades": 58,
     "open_positions": 1,
-    "win_rate": 0.474,
-    "total_pnl": -8.33,
-    "roi_pct": -0.83,
-    "avg_pnl": -0.146,
-    "avg_edge": 0.036,
-    "avg_score": 85.6,
-    "profit_factor": 0.73,
+    "win_rate": 0.483,
+    "total_pnl": -7.56,
+    "roi_pct": -0.76,
+    "avg_pnl": -0.13,
+    "avg_edge": 0.0359,
+    "avg_score": 85.4,
+    "profit_factor": 0.75,
     "max_drawdown_pct": 1.23,
-    "capital": 991.67
+    "capital": 992.44
   },
   "readiness": {
     "status": "blocked",
@@ -951,19 +967,19 @@
       {
         "name": "sample",
         "ok": false,
-        "actual": 57,
+        "actual": 58,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.474,
+        "actual": 0.483,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -0.83,
+        "actual": -0.76,
         "target": 3.0
       },
       {
