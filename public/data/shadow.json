@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778660400",
+      "ts": 1778660324551,
+      "side": "YES",
+      "entry": 0.4973,
+      "size": 0.93,
+      "btc_entry": 81041.51,
+      "btc_exit": null,
+      "p_up": null,
+      "edge": 0.037,
+      "score": 94.6,
+      "source": "shadow_baseline",
+      "reason": "model_not_tradeable: auc < 0.54",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778656800",
       "ts": 1778656726077,
       "side": "NO",
       "entry": 0.4973,
       "size": 0.93,
       "btc_entry": 80991.99,
-      "btc_exit": null,
+      "btc_exit": 81041.51,
       "p_up": null,
       "edge": 0.0304,
       "score": 94.6,
       "source": "shadow_baseline",
       "reason": "model_not_tradeable: auc < 0.54",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 0,
+      "pnl": -1.03
     },
     {
       "event": "btc-updown-5m-1778616000",
@@ -1058,17 +1074,17 @@
     }
   ],
   "metrics": {
-    "total_trades": 65,
+    "total_trades": 66,
     "open_positions": 1,
-    "win_rate": 0.462,
-    "total_pnl": -11.33,
-    "roi_pct": -1.13,
-    "avg_pnl": -0.174,
-    "avg_edge": 0.0354,
-    "avg_score": 84.5,
-    "profit_factor": 0.69,
-    "max_drawdown_pct": 1.47,
-    "capital": 988.67
+    "win_rate": 0.455,
+    "total_pnl": -12.36,
+    "roi_pct": -1.24,
+    "avg_pnl": -0.187,
+    "avg_edge": 0.0353,
+    "avg_score": 84.6,
+    "profit_factor": 0.67,
+    "max_drawdown_pct": 1.57,
+    "capital": 987.64
   },
   "readiness": {
     "status": "blocked",
@@ -1079,25 +1095,25 @@
       {
         "name": "sample",
         "ok": false,
-        "actual": 65,
+        "actual": 66,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.462,
+        "actual": 0.455,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -1.13,
+        "actual": -1.24,
         "target": 3.0
       },
       {
         "name": "drawdown",
         "ok": true,
-        "actual": 1.47,
+        "actual": 1.57,
         "target": 8.0
       }
     ]
