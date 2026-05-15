@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1778807700",
+      "ts": 1778807526629,
+      "side": "NO",
+      "entry": 0.4973,
+      "size": 0.93,
+      "btc_entry": 81513.94,
+      "btc_exit": null,
+      "p_up": 0.4576,
+      "edge": 0.0524,
+      "score": 74.7,
+      "source": "shadow_ml",
+      "reason": "confidence 0.042 < 0.100; edge 0.052 < required 0.095; quality 50.9 < 55.0",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1778803800",
       "ts": 1778803758829,
       "side": "YES",
       "entry": 0.5075,
       "size": 0.93,
       "btc_entry": 81274.45,
-      "btc_exit": null,
+      "btc_exit": 81513.94,
       "p_up": null,
       "edge": 0.0345,
       "score": 95.0,
       "source": "shadow_baseline",
       "reason": "model_not_tradeable: brier > 0.245",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 0.8
     },
     {
       "event": "btc-updown-5m-1778790600",
@@ -1314,17 +1330,17 @@
     }
   ],
   "metrics": {
-    "total_trades": 81,
+    "total_trades": 82,
     "open_positions": 1,
-    "win_rate": 0.494,
-    "total_pnl": -9.5,
-    "roi_pct": -0.95,
-    "avg_pnl": -0.117,
-    "avg_edge": 0.0339,
-    "avg_score": 85.5,
-    "profit_factor": 0.77,
+    "win_rate": 0.5,
+    "total_pnl": -8.7,
+    "roi_pct": -0.87,
+    "avg_pnl": -0.106,
+    "avg_edge": 0.034,
+    "avg_score": 85.6,
+    "profit_factor": 0.79,
     "max_drawdown_pct": 1.57,
-    "capital": 990.5
+    "capital": 991.3
   },
   "readiness": {
     "status": "blocked",
@@ -1335,19 +1351,19 @@
       {
         "name": "sample",
         "ok": false,
-        "actual": 81,
+        "actual": 82,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.494,
+        "actual": 0.5,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -0.95,
+        "actual": -0.87,
         "target": 3.0
       },
       {
