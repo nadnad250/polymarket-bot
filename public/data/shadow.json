@@ -1,12 +1,12 @@
 {
   "trades": [
     {
-      "event": "btc-updown-5m-1778810400",
-      "ts": 1778810319966,
+      "event": "btc-updown-5m-1778815500",
+      "ts": 1778815275319,
       "side": "NO",
       "entry": 0.4872,
       "size": 0.93,
-      "btc_entry": 81166.79,
+      "btc_entry": 81192.61,
       "btc_exit": null,
       "p_up": 0.4665,
       "edge": 0.0535,
@@ -15,6 +15,22 @@
       "reason": "confidence 0.034 < 0.100; edge 0.054 < required 0.095; quality 50.0 < 55.0",
       "outcome": null,
       "pnl": 0.0
+    },
+    {
+      "event": "btc-updown-5m-1778810400",
+      "ts": 1778810319966,
+      "side": "NO",
+      "entry": 0.4872,
+      "size": 0.93,
+      "btc_entry": 81166.79,
+      "btc_exit": 81190.04,
+      "p_up": 0.4665,
+      "edge": 0.0535,
+      "score": 73.5,
+      "source": "shadow_ml",
+      "reason": "confidence 0.034 < 0.100; edge 0.054 < required 0.095; quality 50.0 < 55.0",
+      "outcome": 0,
+      "pnl": -1.03
     },
     {
       "event": "btc-updown-5m-1778807700",
@@ -1346,17 +1362,17 @@
     }
   ],
   "metrics": {
-    "total_trades": 83,
+    "total_trades": 84,
     "open_positions": 1,
-    "win_rate": 0.506,
-    "total_pnl": -7.86,
-    "roi_pct": -0.79,
-    "avg_pnl": -0.095,
-    "avg_edge": 0.0342,
-    "avg_score": 85.5,
-    "profit_factor": 0.81,
+    "win_rate": 0.5,
+    "total_pnl": -8.89,
+    "roi_pct": -0.89,
+    "avg_pnl": -0.106,
+    "avg_edge": 0.0344,
+    "avg_score": 85.4,
+    "profit_factor": 0.79,
     "max_drawdown_pct": 1.57,
-    "capital": 992.14
+    "capital": 991.11
   },
   "readiness": {
     "status": "blocked",
@@ -1367,19 +1383,19 @@
       {
         "name": "sample",
         "ok": false,
-        "actual": 83,
+        "actual": 84,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.506,
+        "actual": 0.5,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -0.79,
+        "actual": -0.89,
         "target": 3.0
       },
       {
