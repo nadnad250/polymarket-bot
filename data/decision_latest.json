@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1779201600",
-  "question": "Bitcoin Up or Down - May 19, 10:40AM-10:45AM ET",
-  "seconds_to_close": 471.785429,
-  "btc_price": 76290.995,
+  "event_slug": "btc-updown-5m-1779206100",
+  "question": "Bitcoin Up or Down - May 19, 11:55AM-12:00PM ET",
+  "seconds_to_close": 387.804397,
+  "btc_price": 76489.66500000001,
   "polymarket": {
-    "yes": 0.51,
-    "no": 0.48,
-    "volume_24h": 55.215682
+    "yes": 0.59,
+    "no": 0.4,
+    "volume_24h": 54.411762
   },
   "model": {
     "loaded": true,
@@ -52,18 +52,18 @@
     "source": "shadow_baseline",
     "side": null,
     "price": null,
-    "edge": 0.027372595207864954,
+    "edge": 0.030315655254608637,
     "p_up": null,
     "confidence": null,
     "required_edge": null,
     "quality_score": 0.0,
     "size_pct": 0.0,
     "reasons": [
-      "baseline not aligned mom=+0.00046 imb=-0.261"
+      "baseline not aligned mom=-0.00033 imb=+0.610"
     ],
     "details": {
-      "momentum": 0.0004635094787361364,
-      "imbalance": -0.26058674658955255
+      "momentum": -0.0003349850191976897,
+      "imbalance": 0.609653175628504
     },
     "should_open": false
   },
@@ -74,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-19T14:37:08.228334+00:00"
+  "updated_at": "2026-05-19T15:53:32.210998+00:00"
 }
