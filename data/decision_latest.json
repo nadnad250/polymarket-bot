@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1779305400",
-  "question": "Bitcoin Up or Down - May 20, 3:30PM-3:35PM ET",
-  "seconds_to_close": 342.242991,
-  "btc_price": 77458.095,
+  "event_slug": "btc-updown-5m-1779308700",
+  "question": "Bitcoin Up or Down - May 20, 4:25PM-4:30PM ET",
+  "seconds_to_close": 460.17574,
+  "btc_price": 77441.25,
   "polymarket": {
-    "yes": 0.47,
-    "no": 0.52,
-    "volume_24h": 9.80392
+    "yes": 0.51,
+    "no": 0.48,
+    "volume_24h": 19.607841999999998
   },
   "model": {
     "loaded": true,
@@ -34,22 +34,22 @@
     "action": "skip",
     "source": "ml",
     "side": "NO",
-    "price": 0.52,
-    "edge": 0.03138311530421445,
-    "p_up": 0.44861688469578553,
-    "confidence": 0.051383115304214466,
+    "price": 0.48,
+    "edge": 0.06025143926610821,
+    "p_up": 0.45974856073389186,
+    "confidence": 0.040251439266108135,
     "required_edge": 0.095,
-    "quality_score": 42.61,
+    "quality_score": 49.24,
     "size_pct": 0.0,
     "reasons": [
-      "confidence 0.051 < 0.100",
-      "edge 0.031 < required 0.095",
-      "quality 42.6 < 55.0"
+      "confidence 0.040 < 0.100",
+      "edge 0.060 < required 0.095",
+      "quality 49.2 < 55.0"
     ],
     "details": {
       "edges": {
-        "YES": -0.02138311530421444,
-        "NO": 0.03138311530421445
+        "YES": -0.050251439266108144,
+        "NO": 0.06025143926610821
       },
       "model_auc": 0.5403815089681656
     },
@@ -59,18 +59,18 @@
     "action": "open",
     "source": "shadow_ml",
     "side": "NO",
-    "price": 0.52,
-    "edge": 0.03138311530421445,
-    "p_up": 0.44861688469578553,
-    "confidence": 0.051383115304214466,
+    "price": 0.48,
+    "edge": 0.06025143926610821,
+    "p_up": 0.45974856073389186,
+    "confidence": 0.040251439266108135,
     "required_edge": 0.005,
-    "quality_score": 75.22,
+    "quality_score": 74.15,
     "size_pct": 0.0,
     "reasons": [],
     "details": {
       "edges": {
-        "YES": -0.02138311530421444,
-        "NO": 0.03138311530421445
+        "YES": -0.050251439266108144,
+        "NO": 0.06025143926610821
       }
     },
     "should_open": true
@@ -82,5 +82,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-20T19:29:19.102955+00:00"
+  "updated_at": "2026-05-20T20:22:21.229628+00:00"
 }
