@@ -1,9 +1,9 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1779318000",
-  "question": "Bitcoin Up or Down - May 20, 7:00PM-7:05PM ET",
-  "seconds_to_close": 532.800877,
-  "btc_price": 77395.505,
+  "event_slug": "btc-updown-5m-1779320100",
+  "question": "Bitcoin Up or Down - May 20, 7:35PM-7:40PM ET",
+  "seconds_to_close": 542.066351,
+  "btc_price": 77352.42499999999,
   "polymarket": {
     "yes": 0.5,
     "no": 0.49,
@@ -35,21 +35,21 @@
     "source": "ml",
     "side": "NO",
     "price": 0.49,
-    "edge": 0.0502514392661082,
-    "p_up": 0.45974856073389186,
-    "confidence": 0.040251439266108135,
+    "edge": 0.048871798368993136,
+    "p_up": 0.4611282016310069,
+    "confidence": 0.03887179836899313,
     "required_edge": 0.095,
-    "quality_score": 46.93,
+    "quality_score": 46.43,
     "size_pct": 0.0,
     "reasons": [
-      "confidence 0.040 < 0.100",
-      "edge 0.050 < required 0.095",
-      "quality 46.9 < 55.0"
+      "confidence 0.039 < 0.100",
+      "edge 0.049 < required 0.095",
+      "quality 46.4 < 55.0"
     ],
     "details": {
       "edges": {
-        "YES": -0.040251439266108135,
-        "NO": 0.0502514392661082
+        "YES": -0.03887179836899313,
+        "NO": 0.048871798368993136
       },
       "model_auc": 0.5403815089681656
     },
@@ -60,17 +60,17 @@
     "source": "shadow_ml",
     "side": "NO",
     "price": 0.49,
-    "edge": 0.0502514392661082,
-    "p_up": 0.45974856073389186,
-    "confidence": 0.040251439266108135,
+    "edge": 0.048871798368993136,
+    "p_up": 0.4611282016310069,
+    "confidence": 0.03887179836899313,
     "required_edge": 0.005,
-    "quality_score": 74.51,
+    "quality_score": 74.38,
     "size_pct": 0.0,
     "reasons": [],
     "details": {
       "edges": {
-        "YES": -0.040251439266108135,
-        "NO": 0.0502514392661082
+        "YES": -0.03887179836899313,
+        "NO": 0.048871798368993136
       }
     },
     "should_open": true
@@ -82,5 +82,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-20T22:56:08.527746+00:00"
+  "updated_at": "2026-05-20T23:30:59.474701+00:00"
 }
