@@ -1,67 +1,77 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1779236100",
-  "question": "Bitcoin Up or Down - May 19, 8:15PM-8:20PM ET",
-  "seconds_to_close": 385.247547,
-  "btc_price": 76527.89499999999,
+  "event_slug": "btc-updown-5m-1779240300",
+  "question": "Bitcoin Up or Down - May 19, 9:25PM-9:30PM ET",
+  "seconds_to_close": 542.969068,
+  "btc_price": 76814.015,
   "polymarket": {
-    "yes": 0.53,
-    "no": 0.45,
-    "volume_24h": 61.6
+    "yes": 0.49,
+    "no": 0.5,
+    "volume_24h": 377.82
   },
   "model": {
     "loaded": true,
-    "tradeable": false,
-    "block_reason": "auc < 0.54",
+    "tradeable": true,
+    "block_reason": "ok",
     "metrics": {
-      "n_train": 4050,
-      "n_test": 1007,
-      "accuracy": 0.5382323733862959,
-      "auc": 0.4899892869896441,
-      "auc_raw": 0.4899892869896441,
+      "n_train": 4115,
+      "n_test": 1023,
+      "accuracy": 0.5835777126099707,
+      "auc": 0.5536646452964069,
+      "auc_raw": 0.5536646452964069,
       "flip": false,
-      "brier": 0.24874504359823732,
-      "logloss": 0.6906384180947326,
-      "base_rate": 0.4469135802469136,
-      "brier_lgbm": 0.24875213061753318,
-      "brier_xgb": 0.24874520201749695,
-      "brier_lstm": 0.4122934598009407,
-      "tradeable": false,
-      "trade_block_reason": "auc < 0.54"
+      "brier": 0.24296874282280864,
+      "logloss": 0.6789959319926735,
+      "base_rate": 0.450546780072904,
+      "brier_lgbm": 0.24296874282280864,
+      "brier_xgb": 0.24389647871443243,
+      "brier_lstm": 0.35655233735348946,
+      "tradeable": true,
+      "trade_block_reason": "ok"
     }
   },
   "primary": {
     "action": "skip",
     "source": "ml",
-    "side": null,
-    "price": null,
-    "edge": null,
-    "p_up": null,
-    "confidence": null,
-    "required_edge": null,
-    "quality_score": 0.0,
+    "side": "NO",
+    "price": 0.5,
+    "edge": 0.047340880693089726,
+    "p_up": 0.4526591193069102,
+    "confidence": 0.04734088069308978,
+    "required_edge": 0.095,
+    "quality_score": 47.85,
     "size_pct": 0.0,
     "reasons": [
-      "model_not_tradeable: auc < 0.54"
+      "confidence 0.047 < 0.100",
+      "edge 0.047 < required 0.095",
+      "quality 47.9 < 55.0"
     ],
-    "details": {},
+    "details": {
+      "edges": {
+        "YES": -0.03734088069308977,
+        "NO": 0.047340880693089726
+      },
+      "model_auc": 0.5536646452964069
+    },
     "should_open": false
   },
   "shadow": {
     "action": "open",
-    "source": "shadow_baseline",
+    "source": "shadow_ml",
     "side": "NO",
-    "price": 0.45,
-    "edge": 0.030223619001399797,
-    "p_up": null,
-    "confidence": 0.25,
+    "price": 0.5,
+    "edge": 0.047340880693089726,
+    "p_up": 0.4526591193069102,
+    "confidence": 0.04734088069308978,
     "required_edge": 0.005,
-    "quality_score": 93.22,
+    "quality_score": 75.54,
     "size_pct": 0.0,
     "reasons": [],
     "details": {
-      "momentum": -0.00018359716563547042,
-      "imbalance": -0.8784698619121449
+      "edges": {
+        "YES": -0.03734088069308977,
+        "NO": 0.047340880693089726
+      }
     },
     "should_open": true
   },
@@ -72,5 +82,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-20T00:13:34.764662+00:00"
+  "updated_at": "2026-05-20T01:20:58.328236+00:00"
 }
