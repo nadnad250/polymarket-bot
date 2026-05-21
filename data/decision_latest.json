@@ -1,31 +1,31 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1779344700",
-  "question": "Bitcoin Up or Down - May 21, 2:25AM-2:30AM ET",
-  "seconds_to_close": 336.528696,
-  "btc_price": 77745.735,
+  "event_slug": "btc-updown-5m-1779349800",
+  "question": "Bitcoin Up or Down - May 21, 3:50AM-3:55AM ET",
+  "seconds_to_close": 543.95793,
+  "btc_price": 77661.735,
   "polymarket": {
-    "yes": 0.49,
-    "no": 0.5,
-    "volume_24h": 10.921565999999999
+    "yes": 0.5,
+    "no": 0.49,
+    "volume_24h": 9.0
   },
   "model": {
     "loaded": true,
     "tradeable": true,
     "block_reason": "ok",
     "metrics": {
-      "n_train": 4250,
-      "n_test": 1057,
-      "accuracy": 0.5950804162724692,
-      "auc": 0.5600686161910651,
-      "auc_raw": 0.5600686161910651,
+      "n_train": 4283,
+      "n_test": 1065,
+      "accuracy": 0.6140845070422535,
+      "auc": 0.5599740847055714,
+      "auc_raw": 0.5599740847055714,
       "flip": false,
-      "brier": 0.24269262173105674,
-      "logloss": 0.6784743035470829,
-      "base_rate": 0.45388235294117646,
-      "brier_lgbm": 0.24351649549280308,
-      "brier_xgb": 0.24274836507296335,
-      "brier_lstm": 0.373870665926753,
+      "brier": 0.24221201423824043,
+      "logloss": 0.6775440745783193,
+      "base_rate": 0.4562222741069344,
+      "brier_lgbm": 0.24232757826696952,
+      "brier_xgb": 0.24276066813768726,
+      "brier_lstm": 0.3522979538138548,
       "tradeable": true,
       "trade_block_reason": "ok"
     }
@@ -34,24 +34,24 @@
     "action": "skip",
     "source": "ml",
     "side": "NO",
-    "price": 0.5,
-    "edge": 0.05047716065034702,
-    "p_up": 0.449522839349653,
-    "confidence": 0.05047716065034702,
+    "price": 0.49,
+    "edge": 0.05281456792445405,
+    "p_up": 0.45718543207554596,
+    "confidence": 0.04281456792445404,
     "required_edge": 0.095,
-    "quality_score": 49.31,
+    "quality_score": 48.84,
     "size_pct": 0.0,
     "reasons": [
-      "confidence 0.050 < 0.100",
-      "edge 0.050 < required 0.095",
-      "quality 49.3 < 55.0"
+      "confidence 0.043 < 0.100",
+      "edge 0.053 < required 0.095",
+      "quality 48.8 < 55.0"
     ],
     "details": {
       "edges": {
-        "YES": -0.04047716065034701,
-        "NO": 0.05047716065034702
+        "YES": -0.04281456792445404,
+        "NO": 0.05281456792445405
       },
-      "model_auc": 0.5600686161910651
+      "model_auc": 0.5599740847055714
     },
     "should_open": false
   },
@@ -59,18 +59,18 @@
     "action": "open",
     "source": "shadow_ml",
     "side": "NO",
-    "price": 0.5,
-    "edge": 0.05047716065034702,
-    "p_up": 0.449522839349653,
-    "confidence": 0.05047716065034702,
+    "price": 0.49,
+    "edge": 0.05281456792445405,
+    "p_up": 0.45718543207554596,
+    "confidence": 0.04281456792445404,
     "required_edge": 0.005,
-    "quality_score": 75.85,
+    "quality_score": 74.75,
     "size_pct": 0.0,
     "reasons": [],
     "details": {
       "edges": {
-        "YES": -0.04047716065034701,
-        "NO": 0.05047716065034702
+        "YES": -0.04281456792445404,
+        "NO": 0.05281456792445405
       }
     },
     "should_open": true
@@ -82,5 +82,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-21T06:24:25.086898+00:00"
+  "updated_at": "2026-05-21T07:45:57.477374+00:00"
 }
