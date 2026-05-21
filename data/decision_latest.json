@@ -1,12 +1,12 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1779321600",
-  "question": "Bitcoin Up or Down - May 20, 8:00PM-8:05PM ET",
-  "seconds_to_close": 402.730224,
-  "btc_price": 77450.005,
+  "event_slug": "btc-updown-5m-1779326400",
+  "question": "Bitcoin Up or Down - May 20, 9:20PM-9:25PM ET",
+  "seconds_to_close": 558.335862,
+  "btc_price": 78070.815,
   "polymarket": {
-    "yes": 0.45,
-    "no": 0.54,
+    "yes": 0.46,
+    "no": 0.53,
     "volume_24h": 0.0
   },
   "model": {
@@ -14,18 +14,18 @@
     "tradeable": true,
     "block_reason": "ok",
     "metrics": {
-      "n_train": 4200,
-      "n_test": 1044,
-      "accuracy": 0.5919540229885057,
-      "auc": 0.5403815089681656,
-      "auc_raw": 0.5403815089681656,
+      "n_train": 4250,
+      "n_test": 1057,
+      "accuracy": 0.5950804162724692,
+      "auc": 0.5600686161910651,
+      "auc_raw": 0.5600686161910651,
       "flip": false,
-      "brier": 0.24314427056114324,
-      "logloss": 0.6794029194889565,
-      "base_rate": 0.45357142857142857,
-      "brier_lgbm": 0.2437836103441505,
-      "brier_xgb": 0.24320312400687277,
-      "brier_lstm": 0.3976121172604056,
+      "brier": 0.24269262173105674,
+      "logloss": 0.6784743035470829,
+      "base_rate": 0.45388235294117646,
+      "brier_lgbm": 0.24351649549280308,
+      "brier_xgb": 0.24274836507296335,
+      "brier_lstm": 0.373870665926753,
       "tradeable": true,
       "trade_block_reason": "ok"
     }
@@ -34,24 +34,24 @@
     "action": "skip",
     "source": "ml",
     "side": "NO",
-    "price": 0.54,
-    "edge": 0.010003474407099366,
-    "p_up": 0.44999652559290065,
-    "confidence": 0.050003474407099346,
+    "price": 0.53,
+    "edge": 0.010999733642675702,
+    "p_up": 0.4590002663573243,
+    "confidence": 0.04099973364267567,
     "required_edge": 0.095,
-    "quality_score": 36.06,
+    "quality_score": 36.81,
     "size_pct": 0.0,
     "reasons": [
-      "confidence 0.050 < 0.100",
-      "edge 0.010 < required 0.095",
-      "quality 36.1 < 55.0"
+      "confidence 0.041 < 0.100",
+      "edge 0.011 < required 0.095",
+      "quality 36.8 < 55.0"
     ],
     "details": {
       "edges": {
-        "YES": -3.474407099357535e-06,
-        "NO": 0.010003474407099366
+        "YES": -0.000999733642675693,
+        "NO": 0.010999733642675702
       },
-      "model_auc": 0.5403815089681656
+      "model_auc": 0.5600686161910651
     },
     "should_open": false
   },
@@ -59,18 +59,18 @@
     "action": "open",
     "source": "shadow_ml",
     "side": "NO",
-    "price": 0.54,
-    "edge": 0.010003474407099366,
-    "p_up": 0.44999652559290065,
-    "confidence": 0.050003474407099346,
+    "price": 0.53,
+    "edge": 0.010999733642675702,
+    "p_up": 0.4590002663573243,
+    "confidence": 0.04099973364267567,
     "required_edge": 0.005,
-    "quality_score": 74.38,
+    "quality_score": 73.87,
     "size_pct": 0.0,
     "reasons": [],
     "details": {
       "edges": {
-        "YES": -3.474407099357535e-06,
-        "NO": 0.010003474407099366
+        "YES": -0.000999733642675693,
+        "NO": 0.010999733642675702
       }
     },
     "should_open": true
@@ -82,5 +82,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-05-20T23:58:18.741997+00:00"
+  "updated_at": "2026-05-21T01:15:42.953453+00:00"
 }
