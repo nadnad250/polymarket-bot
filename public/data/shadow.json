@@ -7,14 +7,14 @@
       "entry": 0.4872,
       "size": 0.93,
       "btc_entry": 77368.86,
-      "btc_exit": null,
+      "btc_exit": 77435.46,
       "p_up": 0.448,
       "edge": 0.072,
       "score": 75.3,
       "source": "shadow_ml",
       "reason": "confidence 0.052 < 0.100; edge 0.072 < required 0.095; quality 53.6 < 55.0",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 0,
+      "pnl": -1.03
     },
     {
       "event": "btc-updown-5m-1779407400",
@@ -1602,17 +1602,17 @@
     }
   ],
   "metrics": {
-    "total_trades": 170,
-    "open_positions": 1,
-    "win_rate": 0.512,
-    "total_pnl": -13.52,
-    "roi_pct": -1.35,
-    "avg_pnl": -0.08,
-    "avg_edge": 0.0397,
+    "total_trades": 171,
+    "open_positions": 0,
+    "win_rate": 0.509,
+    "total_pnl": -14.55,
+    "roi_pct": -1.45,
+    "avg_pnl": -0.085,
+    "avg_edge": 0.0399,
     "avg_score": 83.0,
-    "profit_factor": 0.84,
+    "profit_factor": 0.83,
     "max_drawdown_pct": 2.02,
-    "capital": 986.48
+    "capital": 985.45
   },
   "readiness": {
     "status": "blocked",
@@ -1623,19 +1623,19 @@
       {
         "name": "sample",
         "ok": false,
-        "actual": 170,
+        "actual": 171,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.512,
+        "actual": 0.509,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -1.35,
+        "actual": -1.45,
         "target": 3.0
       },
       {
