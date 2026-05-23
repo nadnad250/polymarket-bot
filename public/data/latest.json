@@ -1,11 +1,11 @@
 {
-  "ts": 1779547835287,
-  "btc_price": 75334.005,
-  "poly_yes": 0.57,
-  "poly_no": 0.42,
-  "poly_market": "btc-updown-5m-1779547800",
-  "poly_question": "Bitcoin Up or Down - May 23, 10:50AM-10:55AM ET",
-  "ob_imb": -0.266870386326172,
+  "ts": 1779549635289,
+  "btc_price": 75547.92499999999,
+  "poly_yes": 0.29,
+  "poly_no": 0.7,
+  "poly_market": "btc-updown-5m-1779549600",
+  "poly_question": "Bitcoin Up or Down - May 23, 11:20AM-11:25AM ET",
+  "ob_imb": 0.2591840196945022,
   "spread_bps": 0.0,
-  "updated_at": "2026-05-23T14:50:35.813499+00:00"
+  "updated_at": "2026-05-23T15:20:35.737418+00:00"
 }
