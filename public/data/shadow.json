@@ -7,14 +7,14 @@
       "entry": 0.4872,
       "size": 0.93,
       "btc_entry": 77194.79,
-      "btc_exit": null,
+      "btc_exit": 76343.61,
       "p_up": null,
       "edge": 0.0281,
       "score": 90.8,
       "source": "shadow_baseline",
       "reason": "model_not_tradeable: brier > 0.245",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 0.88
     },
     {
       "event": "btc-updown-5m-1779790800",
@@ -1602,40 +1602,40 @@
     }
   ],
   "metrics": {
-    "total_trades": 199,
-    "open_positions": 1,
-    "win_rate": 0.492,
-    "total_pnl": -22.47,
-    "roi_pct": -2.25,
-    "avg_pnl": -0.113,
-    "avg_edge": 0.0406,
-    "avg_score": 83.4,
-    "profit_factor": 0.78,
+    "total_trades": 200,
+    "open_positions": 0,
+    "win_rate": 0.495,
+    "total_pnl": -21.59,
+    "roi_pct": -2.16,
+    "avg_pnl": -0.108,
+    "avg_edge": 0.0405,
+    "avg_score": 83.5,
+    "profit_factor": 0.79,
     "max_drawdown_pct": 2.68,
-    "capital": 977.53
+    "capital": 978.41
   },
   "readiness": {
-    "status": "blocked",
-    "label": "Demo seulement",
-    "passed": 1,
+    "status": "watch",
+    "label": "A surveiller",
+    "passed": 2,
     "total": 4,
     "checks": [
       {
         "name": "sample",
-        "ok": false,
-        "actual": 199,
+        "ok": true,
+        "actual": 200,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.492,
+        "actual": 0.495,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -2.25,
+        "actual": -2.16,
         "target": 3.0
       },
       {
