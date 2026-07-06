@@ -1,20 +1,36 @@
 {
   "trades": [
     {
+      "event": "btc-updown-5m-1783362900",
+      "ts": 1783362614928,
+      "side": "YES",
+      "entry": 0.5075,
+      "size": 0.93,
+      "btc_entry": 63690.18,
+      "btc_exit": null,
+      "p_up": null,
+      "edge": 0.0256,
+      "score": 91.2,
+      "source": "shadow_baseline",
+      "reason": "model_not_tradeable: auc < 0.54",
+      "outcome": null,
+      "pnl": 0.0
+    },
+    {
       "event": "btc-updown-5m-1783356000",
       "ts": 1783355939372,
       "side": "YES",
       "entry": 0.4973,
       "size": 0.93,
       "btc_entry": 63582.85,
-      "btc_exit": null,
+      "btc_exit": 63692.35,
       "p_up": null,
       "edge": 0.08,
       "score": 94.6,
       "source": "shadow_baseline",
       "reason": "model_not_tradeable: auc < 0.54",
-      "outcome": null,
-      "pnl": 0.0
+      "outcome": 1,
+      "pnl": 0.84
     },
     {
       "event": "btc-updown-5m-1783344600",
@@ -1583,36 +1599,20 @@
       "reason": "model_not_tradeable: auc < 0.54",
       "outcome": 0,
       "pnl": -1.03
-    },
-    {
-      "event": "btc-updown-5m-1781782500",
-      "ts": 1781782340398,
-      "side": "YES",
-      "entry": 0.5075,
-      "size": 0.93,
-      "btc_entry": 63970.76,
-      "btc_exit": 64129.01,
-      "p_up": null,
-      "edge": 0.0432,
-      "score": 95.0,
-      "source": "shadow_baseline",
-      "reason": "model_not_tradeable: auc < 0.54",
-      "outcome": 1,
-      "pnl": 0.8
     }
   ],
   "metrics": {
-    "total_trades": 457,
+    "total_trades": 458,
     "open_positions": 1,
-    "win_rate": 0.488,
-    "total_pnl": -56.25,
-    "roi_pct": -5.62,
-    "avg_pnl": -0.123,
-    "avg_edge": 0.0364,
+    "win_rate": 0.489,
+    "total_pnl": -55.41,
+    "roi_pct": -5.54,
+    "avg_pnl": -0.121,
+    "avg_edge": 0.0365,
     "avg_score": 87.1,
     "profit_factor": 0.77,
     "max_drawdown_pct": 6.76,
-    "capital": 943.75
+    "capital": 944.59
   },
   "readiness": {
     "status": "watch",
@@ -1623,19 +1623,19 @@
       {
         "name": "sample",
         "ok": true,
-        "actual": 457,
+        "actual": 458,
         "target": 200
       },
       {
         "name": "win_rate",
         "ok": false,
-        "actual": 0.488,
+        "actual": 0.489,
         "target": 0.56
       },
       {
         "name": "roi",
         "ok": false,
-        "actual": -5.62,
+        "actual": -5.54,
         "target": 3.0
       },
       {
