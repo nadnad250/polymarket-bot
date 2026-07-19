@@ -1,31 +1,31 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1784442000",
-  "question": "Bitcoin Up or Down - July 19, 2:20AM-2:25AM ET",
-  "seconds_to_close": 594.646926,
-  "btc_price": 64683.354999999996,
+  "event_slug": "btc-updown-5m-1784450100",
+  "question": "Bitcoin Up or Down - July 19, 4:35AM-4:40AM ET",
+  "seconds_to_close": 301.179035,
+  "btc_price": 64613.05,
   "polymarket": {
     "yes": 0.5,
     "no": 0.49,
-    "volume_24h": 0.0
+    "volume_24h": 843.234895
   },
   "model": {
     "loaded": true,
     "tradeable": false,
     "block_reason": "auc < 0.54",
     "metrics": {
-      "n_train": 13171,
-      "n_test": 3287,
-      "accuracy": 0.5199269850927898,
-      "auc": 0.5063451974234418,
-      "auc_raw": 0.5063451974234418,
+      "n_train": 13186,
+      "n_test": 3291,
+      "accuracy": 0.5305378304466728,
+      "auc": 0.5330437247526892,
+      "auc_raw": 0.5330437247526892,
       "flip": false,
-      "brier": 0.2488931870417255,
-      "logloss": 0.6909068060261196,
-      "base_rate": 0.46822564725533367,
-      "brier_lgbm": 0.2488931870417255,
-      "brier_xgb": 0.24909130110312347,
-      "brier_lstm": 0.3667963944706568,
+      "brier": 0.24822651797037512,
+      "logloss": 0.6895606352315367,
+      "base_rate": 0.46867890186561506,
+      "brier_lgbm": 0.24883479695311067,
+      "brier_xgb": 0.24822651797037512,
+      "brier_lstm": 0.3643181638164883,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -52,18 +52,18 @@
     "source": "shadow_baseline",
     "side": null,
     "price": null,
-    "edge": 0.014149033896328593,
+    "edge": 0.01566207093016875,
     "p_up": null,
     "confidence": null,
     "required_edge": null,
     "quality_score": 0.0,
     "size_pct": 0.0,
     "reasons": [
-      "baseline not aligned mom=+0.00000 imb=-0.566"
+      "baseline not aligned mom=+0.00000 imb=+0.626"
     ],
     "details": {
       "momentum": 0.0,
-      "imbalance": -0.5659613558531437
+      "imbalance": 0.62648283720675
     },
     "should_open": false
   },
@@ -74,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-07-19T06:15:05.370836+00:00"
+  "updated_at": "2026-07-19T08:34:58.833451+00:00"
 }
