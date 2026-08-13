@@ -1,26 +1,26 @@
 {
-  "trained_at": "2026-08-12T18:58:10.196473+00:00",
+  "trained_at": "2026-08-13T01:29:36.102294+00:00",
   "metrics": {
-    "n_train": 15685,
-    "n_test": 3916,
-    "accuracy": 0.5255362614913177,
-    "auc": 0.5408203858675237,
-    "auc_raw": 0.5408203858675237,
+    "n_train": 15738,
+    "n_test": 3929,
+    "accuracy": 0.5357597353016035,
+    "auc": 0.5385488450868317,
+    "auc_raw": 0.5385488450868317,
     "flip": false,
-    "brier": 0.24912378913705854,
-    "logloss": 0.6913905376399854,
-    "base_rate": 0.47153331208160665,
-    "brier_lgbm": 0.2497266290344133,
-    "brier_xgb": 0.24912378913705854,
-    "brier_lstm": 0.35185797259373247,
+    "brier": 0.24952892439710095,
+    "logloss": 0.692233748477969,
+    "base_rate": 0.47147032659804294,
+    "brier_lgbm": 0.24996056057497892,
+    "brier_xgb": 0.24952892439710095,
+    "brier_lstm": 0.36636454436971566,
     "tradeable": false,
-    "trade_block_reason": "brier > 0.245"
+    "trade_block_reason": "auc < 0.54"
   },
   "weights": {
     "lgbm": 0.0,
     "xgb": 1.0,
     "lstm": 0.0
   },
-  "n_ticks_used": 31668,
-  "n_trainable_labels": 19607
+  "n_ticks_used": 31770,
+  "n_trainable_labels": 19673
 }
