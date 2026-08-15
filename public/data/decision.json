@@ -1,9 +1,9 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1786752300",
-  "question": "Bitcoin Up or Down - August 14, 8:05PM-8:10PM ET",
-  "seconds_to_close": 580.321914,
-  "btc_price": 62966.405,
+  "event_slug": "btc-updown-5m-1786758300",
+  "question": "Bitcoin Up or Down - August 14, 9:45PM-9:50PM ET",
+  "seconds_to_close": 397.809907,
+  "btc_price": 62960.115000000005,
   "polymarket": {
     "yes": 0.5,
     "no": 0.49,
@@ -14,18 +14,18 @@
     "tradeable": false,
     "block_reason": "auc < 0.54",
     "metrics": {
-      "n_train": 15992,
-      "n_test": 3992,
-      "accuracy": 0.5150300601202404,
-      "auc": 0.5289931146530265,
-      "auc_raw": 0.5289931146530265,
+      "n_train": 16052,
+      "n_test": 4007,
+      "accuracy": 0.5268280509109059,
+      "auc": 0.5336052233986573,
+      "auc_raw": 0.5336052233986573,
       "flip": false,
-      "brier": 0.2498323723123845,
-      "logloss": 0.6928321827287757,
-      "base_rate": 0.47111055527763884,
-      "brier_lgbm": 0.2509838278399657,
-      "brier_xgb": 0.2500524822747759,
-      "brier_lstm": 0.35142201674583046,
+      "brier": 0.24981737437144885,
+      "logloss": 0.6928158745943462,
+      "base_rate": 0.4711562422128084,
+      "brier_lgbm": 0.25070307794683855,
+      "brier_xgb": 0.24981737437144885,
+      "brier_lstm": 0.36270689614039325,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -52,18 +52,18 @@
     "source": "shadow_baseline",
     "side": null,
     "price": null,
-    "edge": 0.004275396603162374,
+    "edge": 0.012830308955603886,
     "p_up": null,
     "confidence": null,
     "required_edge": null,
     "quality_score": 0.0,
     "size_pct": 0.0,
     "reasons": [
-      "baseline not aligned mom=+0.00000 imb=-0.171"
+      "baseline not aligned mom=-0.00005 imb=-0.424"
     ],
     "details": {
-      "momentum": 1.5879897165021141e-07,
-      "imbalance": -0.17073002597752457
+      "momentum": -4.954349323235278e-05,
+      "imbalance": -0.42403407040592045
     },
     "should_open": false
   },
@@ -74,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-08-15T00:00:19.692629+00:00"
+  "updated_at": "2026-08-15T01:43:22.204455+00:00"
 }
