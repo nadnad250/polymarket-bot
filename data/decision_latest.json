@@ -1,31 +1,31 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1787013900",
-  "question": "Bitcoin Up or Down - August 17, 8:45PM-8:50PM ET",
-  "seconds_to_close": 352.215435,
-  "btc_price": 64348.705,
+  "event_slug": "btc-updown-5m-1787019000",
+  "question": "Bitcoin Up or Down - August 17, 10:10PM-10:15PM ET",
+  "seconds_to_close": 547.061367,
+  "btc_price": 64217.665,
   "polymarket": {
     "yes": 0.5,
     "no": 0.49,
-    "volume_24h": 1.960783
+    "volume_24h": 0.0
   },
   "model": {
     "loaded": true,
     "tradeable": false,
     "block_reason": "auc < 0.54",
     "metrics": {
-      "n_train": 16972,
-      "n_test": 4238,
-      "accuracy": 0.5056630486078338,
-      "auc": 0.5065270734901034,
-      "auc_raw": 0.5065270734901034,
+      "n_train": 17059,
+      "n_test": 4259,
+      "accuracy": 0.5123268372857478,
+      "auc": 0.5212225189547659,
+      "auc_raw": 0.5212225189547659,
       "flip": false,
-      "brier": 0.2504970336048922,
-      "logloss": 0.6941602289341101,
-      "base_rate": 0.4739571058213528,
-      "brier_lgbm": 0.2505829810395637,
-      "brier_xgb": 0.2505590502525004,
-      "brier_lstm": 0.36529811134672246,
+      "brier": 0.2499487106237193,
+      "logloss": 0.693059316378054,
+      "base_rate": 0.4741192332493112,
+      "brier_lgbm": 0.25028918775004805,
+      "brier_xgb": 0.2499487106237193,
+      "brier_lstm": 0.35494507889462745,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -48,24 +48,22 @@
     "should_open": false
   },
   "shadow": {
-    "action": "skip",
+    "action": "open",
     "source": "shadow_baseline",
-    "side": null,
-    "price": null,
-    "edge": 0.015020107340964917,
+    "side": "YES",
+    "price": 0.5,
+    "edge": 0.0441958618609654,
     "p_up": null,
-    "confidence": null,
-    "required_edge": null,
-    "quality_score": 0.0,
+    "confidence": 0.25,
+    "required_edge": 0.005,
+    "quality_score": 95.0,
     "size_pct": 0.0,
-    "reasons": [
-      "baseline not aligned mom=+0.00014 imb=+0.349"
-    ],
+    "reasons": [],
     "details": {
-      "momentum": 0.0001400455948665092,
-      "imbalance": 0.3487222228788801
+      "momentum": 0.0005715961612312208,
+      "imbalance": 0.7389613842224186
     },
-    "should_open": false
+    "should_open": true
   },
   "thresholds": {
     "min_trade_edge": 0.08,
@@ -74,5 +72,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-08-18T00:44:07.812891+00:00"
+  "updated_at": "2026-08-18T02:05:52.960292+00:00"
 }
