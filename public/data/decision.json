@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1789918800",
-  "question": "Bitcoin Up or Down - September 20, 11:40AM-11:45AM ET",
-  "seconds_to_close": 306.832007,
-  "btc_price": 80832.815,
+  "event_slug": "btc-updown-5m-1789928400",
+  "question": "Bitcoin Up or Down - September 20, 2:20PM-2:25PM ET",
+  "seconds_to_close": 409.654583,
+  "btc_price": 81195.61499999999,
   "polymarket": {
-    "yes": 0.63,
-    "no": 0.35,
-    "volume_24h": 27.0
+    "yes": 0.51,
+    "no": 0.48,
+    "volume_24h": 105.693678
   },
   "model": {
     "loaded": true,
@@ -48,24 +48,22 @@
     "should_open": false
   },
   "shadow": {
-    "action": "skip",
+    "action": "open",
     "source": "shadow_baseline",
-    "side": null,
-    "price": null,
-    "edge": 0.056918975426962296,
+    "side": "NO",
+    "price": 0.48,
+    "edge": 0.02275811075186352,
     "p_up": null,
-    "confidence": null,
-    "required_edge": null,
-    "quality_score": 0.0,
+    "confidence": 0.19061027415192613,
+    "required_edge": 0.005,
+    "quality_score": 88.59,
     "size_pct": 0.0,
-    "reasons": [
-      "baseline not aligned mom=+0.00078 imb=-0.877"
-    ],
+    "reasons": [],
     "details": {
-      "momentum": 0.0007776402129503241,
-      "imbalance": -0.8770066337679085
+      "momentum": -0.00018485416683354538,
+      "imbalance": -0.5775869297741592
     },
-    "should_open": false
+    "should_open": true
   },
   "thresholds": {
     "min_trade_edge": 0.08,
@@ -74,5 +72,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-09-20T15:39:53.323934+00:00"
+  "updated_at": "2026-09-20T18:18:10.364569+00:00"
 }
