@@ -1,5 +1,5 @@
 {
-  "trained_at": "2026-10-08T04:09:48.983566+00:00",
+  "trained_at": "2026-10-08T12:43:47.260362+00:00",
   "metrics": {
     "n_train": 21280,
     "n_test": 5315,
@@ -12,7 +12,7 @@
     "base_rate": 0.47711466165413535,
     "brier_lgbm": 0.25079795168787794,
     "brier_xgb": 0.2512524353332352,
-    "brier_lstm": 0.3552692944096991,
+    "brier_lstm": 0.3708043829242996,
     "tradeable": false,
     "trade_block_reason": "auc < 0.54"
   },
@@ -21,6 +21,6 @@
     "xgb": 0.0,
     "lstm": 0.0
   },
-  "n_ticks_used": 42694,
+  "n_ticks_used": 42695,
   "n_trainable_labels": 26601
 }
