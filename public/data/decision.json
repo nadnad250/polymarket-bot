@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1791960000",
-  "question": "Bitcoin Up or Down - October 14, 2:40AM-2:45AM ET",
-  "seconds_to_close": 321.729448,
-  "btc_price": 83363.685,
+  "event_slug": "btc-updown-5m-1791980700",
+  "question": "Bitcoin Up or Down - October 14, 8:25AM-8:30AM ET",
+  "seconds_to_close": 448.271379,
+  "btc_price": 83609.875,
   "polymarket": {
-    "yes": 0.43,
-    "no": 0.56,
-    "volume_24h": 0.0
+    "yes": 0.49,
+    "no": 0.5,
+    "volume_24h": 11.7
   },
   "model": {
     "loaded": true,
@@ -16,16 +16,16 @@
     "metrics": {
       "n_train": 21425,
       "n_test": 5351,
-      "accuracy": 0.5027097738740423,
-      "auc": 0.49172787566278886,
-      "auc_raw": 0.49172787566278886,
+      "accuracy": 0.5120538217155672,
+      "auc": 0.5277318192020846,
+      "auc_raw": 0.5277318192020846,
       "flip": false,
-      "brier": 0.25052466510605226,
-      "logloss": 0.6942121578960648,
+      "brier": 0.24951462857021517,
+      "logloss": 0.6921740122990462,
       "base_rate": 0.4770128354725788,
       "brier_lgbm": 0.25052466510605226,
       "brier_xgb": 0.25084482289250537,
-      "brier_lstm": 0.3492011235556382,
+      "brier_lstm": 0.3330478238187669,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -52,18 +52,18 @@
     "source": "shadow_baseline",
     "side": null,
     "price": null,
-    "edge": 0.007682780634229568,
+    "edge": 0.021896339530635994,
     "p_up": null,
     "confidence": null,
     "required_edge": null,
     "quality_score": 0.0,
     "size_pct": 0.0,
     "reasons": [
-      "baseline not aligned mom=+0.00015 imb=-0.043"
+      "baseline not aligned mom=-0.00019 imb=+0.531"
     ],
     "details": {
-      "momentum": 0.00014669795263390508,
-      "imbalance": -0.04325491062815358
+      "momentum": -0.0001917485062433303,
+      "imbalance": 0.5307062699874453
     },
     "should_open": false
   },
@@ -74,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-10-14T06:39:38.300524+00:00"
+  "updated_at": "2026-10-14T12:22:31.750554+00:00"
 }
