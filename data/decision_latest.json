@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1792217400",
-  "question": "Bitcoin Up or Down - October 17, 2:10AM-2:15AM ET",
-  "seconds_to_close": 319.153744,
-  "btc_price": 81475.89499999999,
+  "event_slug": "btc-updown-5m-1792233600",
+  "question": "Bitcoin Up or Down - October 17, 6:40AM-6:45AM ET",
+  "seconds_to_close": 329.677373,
+  "btc_price": 81523.995,
   "polymarket": {
-    "yes": 0.52,
-    "no": 0.47,
-    "volume_24h": 0.0
+    "yes": 0.49,
+    "no": 0.5,
+    "volume_24h": 10.0
   },
   "model": {
     "loaded": true,
@@ -16,16 +16,16 @@
     "metrics": {
       "n_train": 21496,
       "n_test": 5369,
-      "accuracy": 0.5127584280126652,
-      "auc": 0.48189249481521973,
-      "auc_raw": 0.48189249481521973,
+      "accuracy": 0.5239336934252189,
+      "auc": 0.5162098672451849,
+      "auc_raw": 0.5162098672451849,
       "flip": false,
-      "brier": 0.25021003775676337,
-      "logloss": 0.6935729413115049,
+      "brier": 0.24995826810399166,
+      "logloss": 0.693076797394318,
       "base_rate": 0.47808894678079644,
       "brier_lgbm": 0.2506936504117582,
       "brier_xgb": 0.25021003775676337,
-      "brier_lstm": 0.35254505464156394,
+      "brier_lstm": 0.346768641378868,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -52,18 +52,18 @@
     "source": "shadow_baseline",
     "side": null,
     "price": null,
-    "edge": 0.0013653899027109041,
+    "edge": 0.00943808676259226,
     "p_up": null,
     "confidence": null,
     "required_edge": null,
     "quality_score": 0.0,
     "size_pct": 0.0,
     "reasons": [
-      "baseline not aligned mom=-0.00002 imb=-0.019"
+      "baseline not aligned mom=+0.00000 imb=-0.378"
     ],
     "details": {
-      "momentum": -1.988878486148374e-05,
-      "imbalance": -0.018815783357765438
+      "momentum": 0.0,
+      "imbalance": -0.3775234705036904
     },
     "should_open": false
   },
@@ -74,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-10-17T06:09:40.857293+00:00"
+  "updated_at": "2026-10-17T10:39:30.342853+00:00"
 }
