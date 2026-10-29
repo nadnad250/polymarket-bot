@@ -1,9 +1,9 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1793236800",
-  "question": "Bitcoin Up or Down - October 28, 9:20PM-9:25PM ET",
-  "seconds_to_close": 568.05531,
-  "btc_price": 80882.39499999999,
+  "event_slug": "btc-updown-5m-1793258100",
+  "question": "Bitcoin Up or Down - October 29, 3:15AM-3:20AM ET",
+  "seconds_to_close": 540.411572,
+  "btc_price": 79831.39499999999,
   "polymarket": {
     "yes": 0.5,
     "no": 0.49,
@@ -12,22 +12,22 @@
   "model": {
     "loaded": true,
     "tradeable": false,
-    "block_reason": "brier > 0.245",
+    "block_reason": "auc < 0.54",
     "metrics": {
-      "n_train": 21943,
-      "n_test": 5480,
-      "accuracy": 0.5386861313868613,
-      "auc": 0.544748889289445,
-      "auc_raw": 0.544748889289445,
+      "n_train": 21960,
+      "n_test": 5484,
+      "accuracy": 0.5114879649890591,
+      "auc": 0.5169897549290045,
+      "auc_raw": 0.5169897549290045,
       "flip": false,
-      "brier": 0.24861152239198991,
-      "logloss": 0.6903693336398454,
-      "base_rate": 0.4772820489449939,
-      "brier_lgbm": 0.25022245432592505,
-      "brier_xgb": 0.24992016619898058,
-      "brier_lstm": 0.3330480283048654,
+      "brier": 0.25004717273863275,
+      "logloss": 0.6932445327714774,
+      "base_rate": 0.47700364298724957,
+      "brier_lgbm": 0.2506829748970401,
+      "brier_xgb": 0.2500558381104097,
+      "brier_lstm": 0.3390204921676499,
       "tradeable": false,
-      "trade_block_reason": "brier > 0.245"
+      "trade_block_reason": "auc < 0.54"
     }
   },
   "primary": {
@@ -42,7 +42,7 @@
     "quality_score": 0.0,
     "size_pct": 0.0,
     "reasons": [
-      "model_not_tradeable: brier > 0.245"
+      "model_not_tradeable: auc < 0.54"
     ],
     "details": {},
     "should_open": false
@@ -52,18 +52,18 @@
     "source": "shadow_baseline",
     "side": null,
     "price": null,
-    "edge": 0.01367033856437527,
+    "edge": 0.034466971665284354,
     "p_up": null,
     "confidence": null,
     "required_edge": null,
     "quality_score": 0.0,
     "size_pct": 0.0,
     "reasons": [
-      "baseline not aligned mom=-0.00012 imb=-0.334"
+      "baseline not aligned mom=+0.00039 imb=-0.673"
     ],
     "details": {
-      "momentum": -0.00011834246355134955,
-      "imbalance": -0.33379710818258157
+      "momentum": 0.00039229655364154405,
+      "imbalance": -0.6725450700565949
     },
     "should_open": false
   },
@@ -74,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-10-29T01:15:31.970666+00:00"
+  "updated_at": "2026-10-29T07:10:59.610587+00:00"
 }
