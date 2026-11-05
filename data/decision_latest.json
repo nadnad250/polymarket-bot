@@ -1,31 +1,31 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1793901600",
-  "question": "Bitcoin Up or Down - November 5, 1:00PM-1:05PM ET",
-  "seconds_to_close": 365.691113,
-  "btc_price": 75781.5,
+  "event_slug": "btc-updown-5m-1793921400",
+  "question": "Bitcoin Up or Down - November 5, 6:30PM-6:35PM ET",
+  "seconds_to_close": 344.15552,
+  "btc_price": 75787.455,
   "polymarket": {
-    "yes": 0.49,
-    "no": 0.5,
-    "volume_24h": 3891.2958
+    "yes": 0.44,
+    "no": 0.55,
+    "volume_24h": 7.960785
   },
   "model": {
     "loaded": true,
     "tradeable": false,
     "block_reason": "auc < 0.54",
     "metrics": {
-      "n_train": 22204,
+      "n_train": 22207,
       "n_test": 5546,
-      "accuracy": 0.5016227912008655,
-      "auc": 0.5123708704320942,
-      "auc_raw": 0.5123708704320942,
+      "accuracy": 0.50360620266859,
+      "auc": 0.500978714472099,
+      "auc_raw": 0.500978714472099,
       "flip": false,
-      "brier": 0.2505126746827635,
-      "logloss": 0.6941783343779244,
-      "base_rate": 0.47707620248603855,
-      "brier_lgbm": 0.2505672499373482,
-      "brier_xgb": 0.2505921183094879,
-      "brier_lstm": 0.3444885211885313,
+      "brier": 0.2511025226183677,
+      "logloss": 0.6953623677534013,
+      "base_rate": 0.4770117530508398,
+      "brier_lgbm": 0.25165747124986426,
+      "brier_xgb": 0.251129190577274,
+      "brier_lstm": 0.34672597569494334,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -51,17 +51,17 @@
     "action": "open",
     "source": "shadow_baseline",
     "side": "NO",
-    "price": 0.5,
-    "edge": 0.028142019018296292,
+    "price": 0.55,
+    "edge": 0.06435192691814759,
     "p_up": null,
-    "confidence": 0.24644939238389063,
+    "confidence": 0.25,
     "required_edge": 0.005,
-    "quality_score": 94.66,
+    "quality_score": 93.22,
     "size_pct": 0.0,
     "reasons": [],
     "details": {
-      "momentum": -0.00017485398899536132,
-      "imbalance": -0.8109435805402012
+      "momentum": -0.0010221247614634933,
+      "imbalance": -0.7342525060916155
     },
     "should_open": true
   },
@@ -72,5 +72,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-11-05T17:58:54.334799+00:00"
+  "updated_at": "2026-11-05T23:29:15.861459+00:00"
 }
