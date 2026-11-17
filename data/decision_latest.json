@@ -1,13 +1,13 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1794862200",
-  "question": "Bitcoin Up or Down - November 16, 3:50PM-3:55PM ET",
-  "seconds_to_close": 325.387434,
-  "btc_price": 64918.095,
+  "event_slug": "btc-updown-5m-1794885300",
+  "question": "Bitcoin Up or Down - November 16, 10:15PM-10:20PM ET",
+  "seconds_to_close": 324.932793,
+  "btc_price": 64587.945,
   "polymarket": {
-    "yes": 0.53,
-    "no": 0.46,
-    "volume_24h": 11.764707
+    "yes": 0.45,
+    "no": 0.52,
+    "volume_24h": 0.0
   },
   "model": {
     "loaded": true,
@@ -17,15 +17,15 @@
       "n_train": 22492,
       "n_test": 5618,
       "accuracy": 0.49608401566393734,
-      "auc": 0.48761360537113624,
-      "auc_raw": 0.48761360537113624,
+      "auc": 0.4880825253546303,
+      "auc_raw": 0.4880825253546303,
       "flip": false,
       "brier": 0.25079803026311887,
       "logloss": 0.6947454140740401,
       "base_rate": 0.4777698737328828,
       "brier_lgbm": 0.2508789320764066,
       "brier_xgb": 0.2518291442626191,
-      "brier_lstm": 0.3563126871366304,
+      "brier_lstm": 0.3520005112582825,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -48,22 +48,24 @@
     "should_open": false
   },
   "shadow": {
-    "action": "open",
+    "action": "skip",
     "source": "shadow_baseline",
-    "side": "NO",
-    "price": 0.46,
-    "edge": 0.03674213711016221,
+    "side": null,
+    "price": null,
+    "edge": 0.04534125624030963,
     "p_up": null,
-    "confidence": 0.25,
-    "required_edge": 0.005,
-    "quality_score": 93.58,
+    "confidence": null,
+    "required_edge": null,
+    "quality_score": 0.0,
     "size_pct": 0.0,
-    "reasons": [],
+    "reasons": [
+      "baseline not aligned mom=-0.00047 imb=+0.972"
+    ],
     "details": {
-      "momentum": -0.000275161917467479,
-      "imbalance": -0.974394032965026
+      "momentum": -0.00046771048751778155,
+      "imbalance": 0.9717713720803783
     },
-    "should_open": true
+    "should_open": false
   },
   "thresholds": {
     "min_trade_edge": 0.08,
@@ -72,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-11-16T20:49:34.626835+00:00"
+  "updated_at": "2026-11-17T03:14:35.094432+00:00"
 }
