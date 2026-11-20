@@ -1,12 +1,12 @@
 {
   "mode": "paper_demo",
-  "event_slug": "btc-updown-5m-1795132200",
-  "question": "Bitcoin Up or Down - November 19, 6:50PM-6:55PM ET",
-  "seconds_to_close": 319.709892,
-  "btc_price": 61862.725000000006,
+  "event_slug": "btc-updown-5m-1795148700",
+  "question": "Bitcoin Up or Down - November 19, 11:25PM-11:30PM ET",
+  "seconds_to_close": 349.366612,
+  "btc_price": 61614.235,
   "polymarket": {
-    "yes": 0.52,
-    "no": 0.47,
+    "yes": 0.53,
+    "no": 0.46,
     "volume_24h": 0.0
   },
   "model": {
@@ -16,16 +16,16 @@
     "metrics": {
       "n_train": 22532,
       "n_test": 5627,
-      "accuracy": 0.510751732717256,
-      "auc": 0.5289610047371189,
-      "auc_raw": 0.5289610047371189,
+      "accuracy": 0.5167940287897637,
+      "auc": 0.5252498110736248,
+      "auc_raw": 0.5252498110736248,
       "flip": false,
-      "brier": 0.24996380760077236,
-      "logloss": 0.6930772743792587,
+      "brier": 0.2499641386199965,
+      "logloss": 0.69308315664501,
       "base_rate": 0.4777205751819634,
       "brier_lgbm": 0.2507466683398764,
       "brier_xgb": 0.2504754995228063,
-      "brier_lstm": 0.3410891330741856,
+      "brier_lstm": 0.33824863135125743,
       "tradeable": false,
       "trade_block_reason": "auc < 0.54"
     }
@@ -48,22 +48,24 @@
     "should_open": false
   },
   "shadow": {
-    "action": "open",
+    "action": "skip",
     "source": "shadow_baseline",
-    "side": "NO",
-    "price": 0.47,
-    "edge": 0.04536667977607952,
+    "side": null,
+    "price": null,
+    "edge": 0.07197522477694644,
     "p_up": null,
-    "confidence": 0.25,
-    "required_edge": 0.005,
-    "quality_score": 93.93,
+    "confidence": null,
+    "required_edge": null,
+    "quality_score": 0.0,
     "size_pct": 0.0,
-    "reasons": [],
+    "reasons": [
+      "baseline not aligned mom=-0.00105 imb=+0.997"
+    ],
     "details": {
-      "momentum": -0.00045326724355903875,
-      "imbalance": -0.998786152636911
+      "momentum": -0.0010457827280248848,
+      "imbalance": 0.9966000806330649
     },
-    "should_open": true
+    "should_open": false
   },
   "thresholds": {
     "min_trade_edge": 0.08,
@@ -72,5 +74,5 @@
     "shadow_min_edge": 0.005,
     "shadow_min_confidence": 0.005
   },
-  "updated_at": "2026-11-19T23:49:40.311049+00:00"
+  "updated_at": "2026-11-20T04:24:10.644713+00:00"
 }
